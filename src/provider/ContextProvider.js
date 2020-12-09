@@ -13,8 +13,6 @@ const client = Client.buildClient(
   fetch
 )
 
-const storedCurrency = storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency")) || {"code":"CAD","symbol":"$"}
-
 const ContextProvider = ({ children }) => {
   let initialStoreState = {
     client,
@@ -22,7 +20,7 @@ const ContextProvider = ({ children }) => {
     checkout: { lineItems: [] },
     products: [],
     shop: {},
-    selected_currency: storedCurrency
+    selected_currency: storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency")) || {"code":"CAD","symbol":"$"}
   }
 
   const [store, updateStore] = useState(initialStoreState)
