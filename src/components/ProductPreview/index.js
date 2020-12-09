@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from "react"
+import React, { useMemo, useContext, useEffect, useState } from "react"
 import { Link } from "gatsby"
 import BackgroundImage from 'gatsby-background-image'
 import StoreContext from "../../context/StoreContext"
@@ -41,6 +41,12 @@ const ProductPreview = ({ product, preventTab, ...innerProps }) => {
     variants
   } = product
 
+  const [ pathname, setPathname ] = useState("")
+
+  useEffect(() => {
+    setPathname(window.location.pathname)
+  }, [])
+
   const prices = useMemo(() => variants.reduce((acc, cur) => {
     cur.presentmentPrices.edges.forEach(({ node }) => {
       const { price: { amount, currencyCode }} = node
@@ -53,7 +59,7 @@ const ProductPreview = ({ product, preventTab, ...innerProps }) => {
 
   return (
     <li className="product-preview-container" {...innerProps}>
-      <Link to={ `/shop/${ handle }` } state={{ from: window.location.pathname }} {...preventTab && { tabIndex: "-1" }}>
+      <Link to={ `/shop/${ handle }` } state={{ from: pathname }} {...preventTab && { tabIndex: "-1" }}>
         <Img {...{ firstImage, secondImage, handle }} />
         <h3>
           <p>{ title }</p>

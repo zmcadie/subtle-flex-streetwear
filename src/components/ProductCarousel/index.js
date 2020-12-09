@@ -31,14 +31,18 @@ const overflowMod = {
 
 const ProductCarousel = ({ products, title }) => {
   const [ offset, setOffset ] = useState(0)
+  const [ viewWidth, setViewWidth ] = useState(1400)
   const [ availableProducts, productsLength ] = useMemo(() => {
     const available = products.filter(product => product.availableForSale)
     return [ available, available.length ]
   }, [ products ])
 
+  useEffect(() => {
+    setViewWidth(window.innerWidth)
+  }, [])
+
   const shiftTo = (mod) => {
-    const vw = window.innerWidth
-    const breakpoint = vw >= 1400 ? 1400 : vw >= 1080 ? 1080 : vw >= 760 ? 760 : null
+    const breakpoint = viewWidth >= 1400 ? 1400 : viewWidth >= 1080 ? 1080 : viewWidth >= 760 ? 760 : null
     const overflow = productsLength - (breakpoint ? overflowMod[breakpoint] : 0)
     const newOffset = (offset + mod + overflow) % overflow
     setOffset(newOffset)
@@ -52,8 +56,7 @@ const ProductCarousel = ({ products, title }) => {
   }
 
   const getViewMod = () => {
-    const vw = window.innerWidth
-    const breakpoint = vw >= 1400 ? 1400 : vw >= 1080 ? 1080 : vw >= 760 ? 760 : null
+    const breakpoint = viewWidth >= 1400 ? 1400 : viewWidth >= 1080 ? 1080 : viewWidth >= 760 ? 760 : null
     const viewMod = breakpoint ? overflowMod[breakpoint] : 0
     return viewMod
   }
@@ -64,7 +67,7 @@ const ProductCarousel = ({ products, title }) => {
   }
 
   const calcOffset = offset => {
-    const isSmall = window.innerWidth < 375
+    const isSmall = viewWidth < 375
     return offset * -(isSmall ? 280 : 320)
   }
 
