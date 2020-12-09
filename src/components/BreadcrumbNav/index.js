@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
 const BreadcrumbNav = () => {
-  const [ from , setFrom ] = useState()
   const [ paths, setPaths ] = useState([])
 
   useEffect(() => {
@@ -11,11 +10,6 @@ const BreadcrumbNav = () => {
 
     setPaths(from && from !== "/" ? [...from.slice(1).split("/"), pathname[pathname.length - 1]] : pathname)
   }, [])
-  
-  const from = window.history.state && window.history.state.from
-  let paths = window.location.pathname.slice(1).split("/")
-  
-  if (from && from !== "/") paths = [...from.slice(1).split("/"), paths[paths.length - 1]]
   
   return (
     <nav className="breadcrumb-nav">
