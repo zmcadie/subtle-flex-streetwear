@@ -20,7 +20,7 @@ const ContextProvider = ({ children }) => {
     checkout: { lineItems: [] },
     products: [],
     shop: {},
-    selected_currency: storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency")) || {"code":"CAD","symbol":"$"}
+    selected_currency: {"code":"CAD","symbol":"$"}
   }
 
   const [store, updateStore] = useState(initialStoreState)
@@ -28,6 +28,11 @@ const ContextProvider = ({ children }) => {
 
   const [isCartOpen, setIsCartOpen] = useState(false)
   const toggleCartOpen = () => setIsCartOpen(!isCartOpen)
+
+  useEffect(() => {
+    const storedCurrency = storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency"))
+    if (storedCurrency) updateStore({...store, selected_currency: storedCurrency})
+  }, [])
 
   useEffect(() => {
     const initializeCheckout = async () => {
