@@ -1,0 +1,29 @@
+@import "../../utilities/variables";
+
+.breadcrumb-nav {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 20px 40px 10px;
+  text-transform: uppercase;
+
+  a {
+    color: #444;
+    text-decoration: underline;
+
+    &:hover {
+      color: $link-blue;
+    }
+  }
+
+  .nav-break {
+    margin: 0 10px;
+
+    &:last-child {
+      display: none;
+    }
+  }
+
+  .current-label {
+    font-weight: bold;
+  }
+}

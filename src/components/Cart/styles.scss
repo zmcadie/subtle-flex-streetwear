@@ -1,0 +1,246 @@
+@import "../../utilities/variables";
+
+.x-close {
+  background: transparent;
+  border: none;
+  color: currentColor;
+
+  svg {
+    fill: none;
+    overflow: visible;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  circle {
+    fill: #0003;
+    opacity: 0.5;
+    stroke: none;
+    visibility: hidden;
+  }
+
+  &:focus, &:hover {
+    outline: none;
+
+    circle {
+      visibility: visible;
+    }
+  }
+}
+
+.overlay {
+  @include absolute-full;
+
+  background-color: #0003;
+  // height: 100vh;
+  height: 100%;
+  opacity: 0;
+  overflow: hidden;
+  // position: fixed;
+  top: 0;
+  transition-delay: 0.3s, 0.1s;
+  transition-duration: 0s, 0.2s;
+  transition-property: visibility, opacity;
+  visibility: hidden;
+  width: 100vw;
+  z-index: 30;
+
+  &.cart-visible {
+    opacity: 1;
+    transition-delay: 0s;
+    visibility: visible;
+
+    .cart-container {
+      right: 0;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  $cart-width: 400px;
+
+  .cart-container {
+    // @include absolute-full;
+    
+    position: fixed;
+    background: white;
+    height: 100%;
+    left: unset;
+    overflow: auto;
+    right: $cart-width * -1;
+    transition: right 0.3s;
+    width: $cart-width;
+
+    @media (max-width: 425px) {
+      width: 100vw;
+    }
+  }
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  // padding: 75px 0 150px;
+  // position: relative;
+  width: inherit;
+
+  .cart-header {
+    background: white;
+    box-shadow: 0 2px 4px #ddd;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    // position: fixed;
+    top: 0;
+    width: inherit;
+    z-index: 1;
+    
+    h1 {
+      color: currentColor;
+      font-size: 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
+    
+  .cart-line-items {
+    flex-grow: 1;
+    list-style: none;
+    
+    .cart-item {
+      align-items: center;
+      color: #444;
+      display: flex;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 20px;
+
+      .item-link {
+        color: inherit;
+        display: flex;
+
+        &:hover {
+          color: $link-blue;
+        }
+      }
+      
+      img {
+        width: 75px;
+      }
+
+      .item-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 20px;
+        
+        .item-title {
+          color: inherit;
+          font-weight: 500;
+        }
+        
+        .item-price {
+          color: #666;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+      
+      .x-close {
+        color: #aaa;
+        margin-left: auto;
+        opacity: 0;
+
+        &:hover, &:focus {
+          color: inherit;
+        }
+      }
+
+      &:hover, &:focus-within {
+        .x-close {
+          opacity: 1;
+        }
+      }
+    }
+
+    h2.empty-cart-flag {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 10px;
+      padding: 20px;
+    }
+
+    .keep-shopping {
+      margin-left: 20px;
+    }
+  }
+
+  .cart-footer {
+    background: white;
+    box-shadow: 0 -2px 4px #ddd;
+    padding: 20px;
+    // position: fixed;
+    // bottom: 0;
+
+    .cart-subtotal {
+      align-items: flex-end;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 20px;
+      font-weight: bold;
+      justify-content: space-between;
+      
+      h2 {
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin-right: 20px;
+        text-transform: uppercase;
+      }
+
+      .tax-disclaimer {
+        color: #666;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        width: 100%;
+      }
+    }
+
+    .cart-checkout {
+      border: none;
+      border-radius: 1px;
+      color: white;
+      font-size: 18px;
+      margin: 20px 0 0;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+  }
+}
+
+@import "~bulma";
+
+@include touch {
+  .overlay {
+    height: -webkit-fill-available;
+  }
+
+  .cart-content {
+    min-height: -webkit-fill-available;
+
+    .cart-line-items {
+      .cart-item {
+        .x-close {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

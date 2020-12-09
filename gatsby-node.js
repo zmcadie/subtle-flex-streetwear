@@ -3,10 +3,12 @@ const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
-exports.createPages = ({ actions, graphql }) => {
+const nameToURI = name => encodeURI(name.replace(/\s/g, "-").toLowerCase())
+
+exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
-  return graphql(`
+  const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
         edges {
@@ -22,52 +24,117 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
-    }
-  `).then((result) => {
-    if (result.errors) {
-      result.errors.forEach((e) => console.error(e.toString()))
-      return Promise.reject(result.errors)
-    }
-
-    const posts = result.data.allMarkdownRemark.edges
-
-    posts.forEach((edge) => {
-      const id = edge.node.id
-      createPage({
-        path: edge.node.fields.slug,
-        tags: edge.node.frontmatter.tags,
-        component: path.resolve(
-          `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-        ),
-        // additional data can be passed via context
-        context: {
-          id,
-        },
-      })
-    })
-
-    // Tag pages:
-    let tags = []
-    // Iterate through each post, putting all found tags into `tags`
-    posts.forEach((edge) => {
-      if (_.get(edge, `node.frontmatter.tags`)) {
-        tags = tags.concat(edge.node.frontmatter.tags)
+      allShopifyProduct(sort: { fields: [title] }) {
+        edges {
+          node {
+            title
+            shopifyId
+            handle
+            description
+            availableForSale
+            priceRange {
+              maxVariantPrice {
+                amount
+              }
+              minVariantPrice {
+                amount
+              }
+            }
+            images {
+              originalSrc
+            }
+            variants {
+              presentmentPrices {
+                edges {
+                  node {
+                    price {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        group(field: productType) {
+          fieldValue
+        }
       }
+      allShopifyCollection {
+        nodes {
+          title
+        }
+      }
+    }
+  `)
+  
+  if (result.errors) {
+    result.errors.forEach((e) => console.error(e.toString()))
+    return Promise.reject(result.errors)
+  }
+
+  const products = result.data.allShopifyProduct.edges
+  const productTypes = result.data.allShopifyProduct.group
+  const collections = result.data.allShopifyCollection.nodes
+  const posts = result.data.allMarkdownRemark.edges
+
+  products.forEach(({ node }) => {
+    createPage({
+      path: `/shop/${node.handle}`,
+      component: path.resolve(`./src/templates/product.js`),
+      context: {
+        product: node,
+      },
     })
-    // Eliminate duplicate tags
-    tags = _.uniq(tags)
-
-    // Make tag pages
-    tags.forEach((tag) => {
-      const tagPath = `/tags/${_.kebabCase(tag)}/`
-
+  })
+  
+  productTypes.forEach(({ fieldValue: productType }) => {
+    const typeURI = nameToURI(productType)
+    const typePath = `/shop/${typeURI}`
+    createPage({
+      path: typePath,
+      component: path.resolve(`./src/templates/product-type.js`),
+      context: {
+        productType
+      },
+    })
+    collections.forEach(({ title }) => {
+      const collectionURI = nameToURI(title)
+      const collectionPath = `/shop/${typeURI}/${collectionURI}`
       createPage({
-        path: tagPath,
-        component: path.resolve(`src/templates/tags.js`),
+        path: collectionPath,
+        component: path.resolve(`./src/templates/product-collection.js`),
         context: {
-          tag,
+          title,
+          productType
         },
       })
+    })
+  })
+  
+  collections.forEach(({ title }) => {
+    const collectionPath = `/shop/${nameToURI(title)}`
+    createPage({
+      path: collectionPath,
+      component: path.resolve(`./src/templates/product-collection.js`),
+      context: {
+        title
+      },
+    })
+  })
+
+  posts.forEach((edge) => {
+    const id = edge.node.id
+    createPage({
+      path: edge.node.fields.slug,
+      tags: edge.node.frontmatter.tags,
+      component: path.resolve(
+        `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+      ),
+      context: {
+        id,
+      },
     })
   })
 }

@@ -1,0 +1,22 @@
+$subtle-light: #5DBAC7;
+$subtle-dark: #616FA5;
+$subtle-red: #F93943;
+
+$link-blue: #3273dc;
+
+$product-preview-width: 280px;
+$product-preview-width-mobile-sm: 240px;
+
+@mixin mobile-sm {
+  @media (max-width: 374px) {
+    @content;
+  }
+}
+
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

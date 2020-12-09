@@ -1,0 +1,30 @@
+.hero-img {
+  align-items: center;
+  box-shadow: inset 0 -1px 4px 0 #0003;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.landing-img-button {
+  background: #fffc;
+  border-radius: 1px;
+  box-shadow: 0 2px 4px 0 #0003;
+  color: #444;
+  font-size: 18px;
+  font-weight: bold;
+  height: 70px;
+  line-height: 70px;
+  margin: 20px;
+  text-align: center;
+  width: 275px;
+}
+
+@import "~bulma";
+
+@include mobile {
+  .hero-img {
+    flex-direction: column;
+  }
+}

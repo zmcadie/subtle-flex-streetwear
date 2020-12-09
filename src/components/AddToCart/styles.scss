@@ -1,0 +1,14 @@
+@import "../../utilities/variables";
+
+.add-to-cart-button {
+  background: $subtle-light;
+  text-transform: uppercase;
+
+  &.remove-from-cart {
+    background: $subtle-red;
+  }
+
+  &[disabled] {
+    opacity: 0.7;
+  }
+}

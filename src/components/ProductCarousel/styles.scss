@@ -1,0 +1,115 @@
+@import "../../utilities/variables";
+
+$carousel-item-gap: 40px;
+
+@mixin carousel-columns-mobile($sm: false) {
+  $column-width: $product-preview-width;
+  $column-sidebar-width: auto;
+
+  @if $sm { $column-width: $product-preview-width-mobile-sm; }
+
+  grid-template-columns: $column-sidebar-width $column-width $column-sidebar-width;
+  width: unset;
+}
+
+@mixin carousel-columns($col-num) {
+  $column-group-width: $product-preview-width * $col-num + $carousel-item-gap * ($col-num - 1);
+
+  grid-template-columns: 80px $column-group-width 80px;
+  width: $column-group-width + 160px;
+}
+
+.product-carousel-container {
+  @include carousel-columns(4);
+
+  display: grid;
+  overflow: hidden;
+  margin: 0 auto;
+  padding-bottom: 20px;
+
+  > h2 {
+    // grid-column: 1 / -1;
+    font-size: 22px;
+    font-weight: bold;
+    grid-column: 2;
+    margin: 20px 0;
+    text-transform: uppercase;
+  }
+
+  ul.product-carousel {
+    display: flex;
+    flex-direction: row;
+    grid-column: 2;
+    grid-row: 2;
+    position: relative;
+    transition: left 0.4s ease-in-out;
+
+    > * {
+      flex: 0 0 auto;
+      margin-right: $carousel-item-gap;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .shift-carousel {
+    border: none;
+    background: white;
+    grid-row: 2;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+
+    &.carousel-left {
+      grid-column: 1;
+    }
+
+    &.carousel-right {
+      grid-column: 3;
+    }
+
+    &:focus {
+      outline: none;
+      
+      path {
+        stroke-width: 2.5;
+      }
+    }
+  }
+
+  &.no-overflow .shift-carousel {
+    display: none;
+  }
+}
+
+@media (max-width: 1399px) {
+  .product-carousel-container {
+    @include carousel-columns(3);
+  }
+}
+
+@media (max-width: 1079px) {
+  .product-carousel-container {
+    @include carousel-columns(2);
+  }
+}
+
+@media (max-width: 759px) {
+  .product-carousel-container {
+    @include carousel-columns(1);
+  }
+}
+
+@media (max-width: 439px) {
+  .product-carousel-container {
+    @include carousel-columns-mobile;
+  }
+}
+
+@media (max-width: 374px) {
+  .product-carousel-container {
+    @include carousel-columns-mobile(true);
+  }
+}

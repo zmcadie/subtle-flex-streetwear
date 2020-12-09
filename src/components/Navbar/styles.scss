@@ -1,0 +1,339 @@
+@import "../../utilities/variables";
+
+$link-hover-bg: #ddd7 !important;
+
+.custom-navbar {
+  align-items: center;
+  background: white;
+  box-shadow: 0 2px 4px 0 #0003;
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) auto 1fr;
+
+  button.navbar-burger {
+    background: transparent;
+    border: none;
+  }
+}
+
+.navbar-logo-container {
+  grid-column: 2;
+  grid-row: 1;
+  
+  .navbar-logo-image {
+    width: 100vw;
+  }
+}
+
+.navbar-left {
+  padding-left: 20px;
+}
+
+.nav-currency {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #ffffff;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNy43cHgiIGhlaWdodD0iNC4zcHgiIHZpZXdCb3g9IjAgMCA3LjcgNC4zIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA3LjcgNC4zIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiM5OTk5OTkiIGQ9Ik03LjEsMC4xQzYuNywwLjUsMy45LDMuMiwzLjksMy4yUzEsMC41LDAuNiwwLjFTMCwwLjcsMCwwLjdsMy45LDMuNmwzLjgtMy42QzcuNywwLjcsNy41LTAuMyw3LjEsMC4xeiIvPg0KPC9zdmc+DQo=);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  padding: 5px 25px 5px 10px;
+}
+
+.navbar-right {
+  align-items: center;
+  display: flex;
+  grid-column: 3;
+  grid-row: 1;
+  justify-content: flex-end;
+}
+
+.nav-search {
+  background: transparent;
+  border: none;
+  color: #444;
+  padding: 13px 10px 10px;
+  
+  svg {
+    overflow: visible;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 3;
+  }
+  
+  circle {
+    fill: none;
+    stroke-width: 2;
+  }
+}
+  
+.nav-cart {
+  background: transparent;
+  border: none;
+  color: $subtle-dark;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px 0;
+  position: relative;
+  width: 100px;
+  
+  svg {
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    overflow: visible;
+  }
+  
+  circle {
+    fill: currentColor;
+  }
+  
+  text {
+    fill: white;
+    stroke: none;
+    text-anchor: middle;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  &.empty {
+    color: #aaa;
+  }
+}
+  
+// .navbar.custom-navbar {
+//   box-shadow: 0 2px 4px 0 #0003;
+
+//   > .container {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+
+//   .navbar-brand {
+//     align-items: center;
+//     display: grid;
+//     grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
+//     margin-top: 8px;
+
+//     button.navbar-burger {
+//       background: transparent;
+//       border: none;
+//     }
+//   }
+
+//   .navbar-logo-container {
+//     grid-column: 2;
+//     padding-top: 0;
+    
+//     .navbar-logo {
+//       width: 100vw;
+//     }
+    
+//     .navbar-logo, img {
+//       max-height: unset;
+//     }
+//   }
+// }
+
+.custom-navbar-menu {
+  justify-self: center;
+  grid-column: 2;
+  grid-row: 2;
+
+  .navbar-menu-items {
+    list-style: none;
+    display: flex;
+  }
+}
+
+.navbar-item-container {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  a.navbar-item {
+    color: #444;
+    padding: 8px 30px 16px;
+    position: relative;
+
+    &.drop-down {
+      padding-right: 40px;
+    
+      &::after {
+        border-bottom: 1px solid #444;
+        border-right: 1px solid #444;
+        content: "";
+        height: 7px;
+        position: absolute;
+        right: 18px;
+        top: 13px;
+        transform: rotate(45deg);
+        width: 7px;
+      }
+    }
+
+    &:hover {
+      background: $link-hover-bg;
+      color: #444;
+    }
+  }
+  
+  .navbar-item-menu {
+    background: white;
+    box-shadow: 0 2px 2px 0 #0003;
+    min-width: 200px;
+    position: absolute;
+    text-align: left;
+    visibility: hidden;
+    z-index: 1;
+
+    a {
+      color: #444;
+      display: block;
+      padding: 8px 30px;
+
+      &:hover {
+        background: $link-hover-bg;
+      }
+    }
+
+    > :first-child a {
+      padding-top: 16px;
+    }
+    
+    > :last-child a {
+      padding-bottom: 16px;
+    }
+  }
+
+  &:hover .navbar-item-menu {
+    visibility: visible;
+  }
+}
+
+.floating-cart {
+  background: $subtle-dark;
+  bottom: 20px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: -2px 4px 4px #0006;
+  color: white;
+  display: none;
+  height: 70px;
+  padding: 10px;
+  position: fixed;
+  right: 20px;
+  width: 70px;
+  z-index: 2;
+
+  &.empty {
+    background: white;
+    color: #ddd;
+
+    svg text {
+      fill: white;
+    }
+  }
+
+  svg {
+    fill: currentColor;
+    overflow: visible;
+    position: relative;
+    right: 1px;
+    stroke: currentColor;
+    stroke-width: 2;
+    top: 6px;
+    transform: scale(1.1);
+
+    text {
+      fill: $subtle-dark;
+      font-size: 14px;
+      font-weight: bold;
+      text-anchor: middle;
+      stroke: none;
+    }
+  }
+}
+
+@import "~bulma";
+
+// @include desktop {
+//   .navbar.custom-navbar > .container {
+//     max-width: unset;
+
+//     .navbar-brand {
+//       margin-left: 0;
+
+//       a {
+//         padding-bottom: 0;
+//       }
+//     }
+//     .navbar-menu {
+//       margin-right: 0;
+//     }
+//   }
+// }
+
+@include touch {
+  .floating-cart {
+    display: initial;
+  }
+
+  .custom-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .navbar-logo-container .navbar-logo-image {
+    width: calc(100vw - 72px);
+  }
+
+  .navbar-right {
+    width: 52px;
+
+    .nav-search, .nav-cart {
+      display: none;
+    }
+  }
+
+  .nav-currency {
+    display: none;
+  }
+
+  .custom-navbar-menu {
+    grid-column: span 3;
+    height: 0px;
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    visibility: hidden;
+    width: 100vw;
+    z-index: 1;
+
+    .navbar-menu-items {
+      background: white;
+      flex-direction: column;
+    }
+
+    &.is-active {
+      height: auto;
+      visibility: visible;
+    }
+  }
+
+  .navbar-item-container a.navbar-item.drop-down {
+    padding-right: 30px;
+
+    &::after {
+      margin-left: 10px;
+      right: unset;
+    }
+  }
+}

@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Gatsby + Netlify CMS Starter',
@@ -29,8 +33,8 @@ module.exports = {
         name: 'images',
       },
     },
-    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -57,6 +61,26 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Roboto\:400,400i,500,700,700i`,
+        ],
+        display: 'swap'
+      },
+    },
+    {
+      resolve: `gatsby-source-shopify`,
+      options: {
+        // The domain name of your Shopify shop.
+        shopName: process.env.SHOPIFY_SHOP_NAME,
+        // The storefront access token
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+        verbose: true,
+        includeCollections: ["shop", "product"],
       },
     },
     {

@@ -1,0 +1,10 @@
+.product-page-layout {
+  > h1 {
+    border-bottom: 1px solid #ddd;
+    font-size: 28px;
+    font-weight: bold;
+    grid-column: 2;
+    margin: 20px 40px;
+    text-transform: uppercase;
+  }
+}

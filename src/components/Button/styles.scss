@@ -1,0 +1,17 @@
+@import "../../utilities/variables";
+
+.custom-button {
+  background: $subtle-dark;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  // height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+
+  &:disabled {
+    background: #ddd;
+  }
+}

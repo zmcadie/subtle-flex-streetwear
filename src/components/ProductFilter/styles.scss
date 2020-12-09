@@ -1,0 +1,20 @@
+.product-filter-container {
+  display: flex;
+  padding: 0 40px;
+
+  .product-filter-item {
+    align-items: center;
+    display: flex;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 10px;
+    text-transform: uppercase;
+  }
+
+  #size-filter {
+    width: 125px;
+  }
+}
