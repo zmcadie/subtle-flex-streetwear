@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { parseQuery, buildQuery } from "./utils"
 
 let listeners = []
-let params = parseQuery(window.location)
 
 const updateParams = (query, newState = false) => {
   const queryString = buildQuery(query)
@@ -12,18 +11,17 @@ const updateParams = (query, newState = false) => {
     : window.history.replaceState(window.history.state, "", query)
   
   update(queryString)
-  params = query
 
-  listeners.forEach(listener => listener(params))
+  listeners.forEach(listener => listener(query))
 }
 
 export const useQueryParams = () => {
-  const newListener = useState()[1]
+  const [params, newListener] = useState(parseQuery(window.location))
 
   useEffect(() => {
     listeners.push(newListener)
     return () => listeners = listeners.filter(listener => listener !== newListener)
-  }, [])
+  }, [ newListener ])
   
   return [ params, updateParams ]
 }
