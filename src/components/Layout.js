@@ -22,7 +22,7 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
   const { title, description } = useSiteMetadata()
   return (
     <ContextProvider>
-      <div>
+      <div {...innerProps}>
         <Helmet>
           <html lang="en" />
           <title>{title}</title>
@@ -62,7 +62,7 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
           />
         </Helmet>
         <Navbar />
-        <div {...innerProps}>{children}</div>
+        <div>{children}</div>
         <Footer />
       </div>
       <Cart />

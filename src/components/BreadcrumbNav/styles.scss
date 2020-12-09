@@ -1,5 +1,9 @@
 @import "../../utilities/variables";
 
+.index-page .breadcrumb-nav {
+  display: none;
+}
+
 .breadcrumb-nav {
   font-size: 14px;
   font-weight: 400;

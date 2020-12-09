@@ -81,7 +81,7 @@ const NavItem = ({ label, path, options }) => (
   </li>
 )
 
-const Navbar = () => {
+const Navbar = ({ hideBreadcrumb = false }) => {
   const { toggleCartOpen, store: { checkout } } = useContext(StoreContext)
   const [ active, setActive ] = useState(false)
   const navBarActiveClass = active ? "is-active" : ""
@@ -160,7 +160,7 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
-      { window.location.pathname.length > 1 ? <BreadcrumbNav /> : "" }
+      <BreadcrumbNav />
       <FloatingCart />
     </>
   )

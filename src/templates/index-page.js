@@ -49,7 +49,7 @@ const IndexPage = ({ data }) => {
   const { products: ourPicks } = data.shopifyCollection
 
   return (
-    <Layout>
+    <Layout className="index-page">
       <IndexPageTemplate
         image={frontmatter.image}
         title={frontmatter.title}
