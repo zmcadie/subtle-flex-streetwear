@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby"
 
 import { Layout, ProductCarousel, ProductFilter } from "../../components"
 import { useQueryParams } from "../../utilities/hooks"
+import { buildQuery } from "../../utilities/utils"
 
 import "./styles.scss"
 
@@ -35,7 +36,7 @@ const ProductsPage = ({ data }) => {
       key: handle,
       products,
       label: title,
-      title: <Link to={ handle + window.location.search }>{ title }</Link>
+      title: <Link to={ handle + buildQuery(params) }>{ title }</Link>
     }
   }), [ params ])
 
