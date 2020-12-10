@@ -1,8 +1,6 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({
-    path: `.env.${process.env.NODE_ENV}`,
-  })
-}
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   siteMetadata: {
@@ -78,9 +76,9 @@ module.exports = {
       resolve: `gatsby-source-shopify`,
       options: {
         // The domain name of your Shopify shop.
-        shopName: process.env.SHOPIFY_SHOP_NAME,
+        shopName: process.env.GATSBY_SHOPIFY_SHOP_NAME,
         // The storefront access token
-        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+        accessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
         verbose: true,
         includeCollections: ["shop", "product"],
       },
