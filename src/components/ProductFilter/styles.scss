@@ -1,10 +1,63 @@
+@import "../../utilities/variables";
+
+.filter-toggle-button {
+  border: none;
+  background: none;
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  margin: -10px 0 0 40px;
+  padding: 10px 0;
+  text-decoration: underline;
+
+  &:focus {
+    color: $link-blue;
+    outline: none;
+  }
+
+  span {
+    display: inline-block;
+    margin-left: 5px;
+    text-decoration: none;
+  }
+}
+
+.filter-clear-button {
+  border: none;
+  background: none;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 500;
+  margin: -10px 0 0 10px;
+  padding: 10px;
+
+  &:focus {
+    color: $link-blue;
+    outline: none;
+  }
+}
+
 .product-filter-container {
   display: flex;
-  padding: 0 40px;
+  flex-wrap: wrap;
+  height: 0;
+  margin-top: -10px;
+  overflow: hidden;
+  padding: 0 40px 0 10px;
+  visibility: hidden;
+
+  &.open {
+    height: 100%;
+    visibility: visible;
+    overflow: visible;
+  }
 
   .product-filter-item {
     align-items: center;
     display: flex;
+    margin-left: 20px;
+    margin-top: 10px;
+    width: fit-content;
   }
 
   label {
@@ -14,7 +67,7 @@
     text-transform: uppercase;
   }
 
-  #size-filter {
-    width: 125px;
+  .filter-select {
+    width: 200px;
   }
 }

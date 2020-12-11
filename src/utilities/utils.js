@@ -60,4 +60,15 @@ export const buildQuery = params => (
   }, "?")
 )
 
-export const nameToURI = name => encodeURI(name.replace(/\s/g, "-").toLowerCase())
+export const nameToURI = name => (
+  encodeURI(name.replace(/\s/g, "-").toLowerCase())
+)
+
+const sizeOrder = ["P","XS","S","M","L","XL","XXL","3XL","4XL","5XL"]
+
+export const sortSize = (a, b) => {
+	const indexA = sizeOrder.findIndex(el => el === a)
+	const indexB = sizeOrder.findIndex(el => el === b)
+	if ([indexA, indexB].includes(-1)) return indexB - indexA
+  return indexA - indexB
+}

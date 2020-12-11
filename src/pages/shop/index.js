@@ -3,50 +3,73 @@ import { graphql, Link } from "gatsby"
 
 import { Layout, ProductCarousel, ProductFilter } from "../../components"
 import { useQueryParams } from "../../utilities/hooks"
-import { buildQuery } from "../../utilities/utils"
+import { buildQuery, sortSize } from "../../utilities/utils"
 
 import "./styles.scss"
 
 const ProductsPage = ({ data }) => {
   const [ params ] = useQueryParams()
 
-  const types = useMemo(() => data.allShopifyProduct.group.map((type, i) => {
+  const types = useMemo(() => data.allShopifyProduct.group.map(type => {
     const { fieldValue: title, nodes } = type
     const handle = title.replace(/\s/g, "-").toLowerCase()
     
-    // console.log("products", products)
     const filter = product => {
-      const { size } = params
+      const filters = data.allShopifyProductOption.distinct.filter(name => name !== "Title")
       
-      const sizeFilter = () => {
-        const checkName = op => op.name.toLowerCase() === "size"
-        const checkValues = op => op.values.includes(size)
+      const filterFunc = name => () => {
+        const checkName = op => op.name === name
+        const checkValues = op => op.values.includes(params[name])
         return product.options.some(op => checkName(op) && checkValues(op))
       }
       
       const checks = []
-      if (size) checks.push(sizeFilter)
+      checks.push(() => product.availableForSale)
+      filters.forEach(name => {
+        if (params[name]) checks.push(filterFunc(name))
+      })
 
       return checks.every(check => check())
     }
 
     const products = nodes.filter(filter)
     
-    return {
-      key: handle,
-      products,
-      label: title,
-      title: <Link to={ handle + buildQuery(params) }>{ title }</Link>
+    if (products.length) {
+      return {
+        key: handle,
+        products,
+        label: title,
+        title: <Link to={ handle + buildQuery(params) }>{ title }</Link>
+      }
     }
-  }), [ params ])
+  }).filter(el => !!el), [ params ])
+
+  const filters = useMemo(() => {
+    const { distinct, group } = data.allShopifyProductOption
+    
+    const names = distinct.filter(type => type !== "Title")
+    const options = group.reduce((acc, cur) => {
+      const { fieldValue: name, nodes } = cur
+      if (name === "Title") return acc
+      
+      const uniqValues = [...new Set(nodes.reduce((arr, node) => [...arr, ...node.values], []))]
+      if (name === "Size") uniqValues.sort(sortSize)
+
+      const options = uniqValues.map(el => ({ value: el, label: el }))
+      
+      return { ...acc, [name]: options }
+    }, {})
+    return { names, options }
+  }, [ data ])
 
   return (
     <Layout className="product-page-layout">
       <h1>Shop</h1>
-      <ProductFilter options={ data.allShopifyProductOption.distinct } />
-      { types.map(type => type.products.length ? (
-        <ProductCarousel {...type} />
-      ) : "") }
+      <ProductFilter filters={ filters } />
+      { types.length ? (
+          types.map(type => <ProductCarousel {...type} />)
+        ) : ""
+      }
     </Layout>
   )
 }
@@ -65,6 +88,12 @@ export const query = graphql`
     }
     allShopifyProductOption {
       distinct(field: name)
+      group(field: name) {
+        fieldValue
+        nodes {
+          values
+        }
+      }
     }
   }
 `

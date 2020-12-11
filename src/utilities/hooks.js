@@ -21,8 +21,8 @@ export const useQueryParams = () => {
   const newListener = useState()[1]
 
   useEffect(() => {
-    if (!params) params = parseQuery(window.location)
     listeners.push(newListener)
+    updateParams(parseQuery(window.location))
     return () => listeners = listeners.filter(listener => listener !== newListener)
   }, [ newListener ])
   
