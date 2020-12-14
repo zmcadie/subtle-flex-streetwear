@@ -1,0 +1,24 @@
+{
+  "socials": [
+    {
+      "image": "/img/white_facebook_icon.png",
+      "url": "www.facebook.com"
+    },
+    {
+      "image": "/img/white_twitter_icon.png",
+      "url": "www.twitter.com"
+    },
+    {
+      "image": "/img/white_insta_icon.png",
+      "url": "www.instagram.com"
+    },
+    {
+      "image": "/img/white_youtube_icon.png",
+      "url": "www.youtube.com"
+    },
+    {
+      "image": "/img/white_email_icon.png",
+      "url": "mailto:test@example.com"
+    }
+  ]
+}
