@@ -8,16 +8,6 @@ import useSiteMetadata from './SiteMetadata'
 import { withPrefix } from 'gatsby'
 import ContextProvider from '../provider/ContextProvider'
 
-import "./AddToCart/styles.scss"
-import "./BreadcrumbNav/styles.scss"
-import "./Button/styles.scss"
-import "./Cart/styles.scss"
-import "./Navbar/styles.scss"
-import "./ProductCarousel/styles.scss"
-import "./ProductFilter/styles.scss"
-import "./ProductGrid/styles.scss"
-import "./ProductPreview/styles.scss"
-
 const TemplateWrapper = ({ children, ...innerProps }) => {
   const { title, description } = useSiteMetadata()
   return (

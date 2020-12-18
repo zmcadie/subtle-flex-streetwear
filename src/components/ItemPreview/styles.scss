@@ -1,6 +1,6 @@
 @import "../../utilities/variables";
 
-.product-preview-container {
+.item-preview-container {
   // box-shadow: 0 4px 4px 0 #0003;
   position: relative;
   width: $product-preview-width;
@@ -9,7 +9,7 @@
     display: block;
   }
 
-  .product-preview-image {
+  .item-preview-image {
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -72,10 +72,10 @@
 $product-preview-width-mobile-sm: 240px;
 
 @include mobile-sm {
-  .product-preview-container {
+  .item-preview-container {
     width: $product-preview-width-mobile-sm;
 
-    .product-preview-image {
+    .item-preview-image {
       height: $product-preview-width-mobile-sm;
       width: $product-preview-width-mobile-sm;
     }

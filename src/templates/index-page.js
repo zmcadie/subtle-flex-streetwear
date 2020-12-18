@@ -1,78 +1,54 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 
-import { Layout, Features, BlogRoll, ProductCarousel } from '../components'
+import { Layout, ProductCarousel, CollectionCarousel } from '../components'
+import { nameToURI } from '../utilities/utils'
 
 import './index-page.scss'
 
-export const IndexPageTemplate = ({
-  image,
-  title,
-  heading,
-  subheading,
-  mainpitch,
-  description,
-  intro,
-  ourPicks
-}) => (
-  <div>
-    <div
-      className="full-width-image margin-top-0 hero-img"
-      style={{
-        backgroundImage: `url(${
-          !!image.childImageSharp ? image.childImageSharp.fluid.src : image
-        })`,
-      }}
-    >
-      <Link to="/shop/mens" className="landing-img-button">Shop Men's Vintage</Link>
-      <Link to="/shop/womens" className="landing-img-button">Shop Women's Vintage</Link>
-    </div>
-    <ProductCarousel products={ ourPicks } title="Our Picks" />
-  </div>
-)
+const IndexPageTemplate = ({ data, pageContext }) => {
+  const { markdownRemark, allShopifyCollection, featured } = data
+  const { frontmatter: {
+    heroBanner: {
+      image,
+      navLeft,
+      navRight
+    }
+  }} = markdownRemark
 
-IndexPageTemplate.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string,
-  heading: PropTypes.string,
-  subheading: PropTypes.string,
-  mainpitch: PropTypes.object,
-  description: PropTypes.string,
-  intro: PropTypes.shape({
-    blurbs: PropTypes.array,
-  }),
-}
-
-const IndexPage = ({ data }) => {
-  const { frontmatter } = data.markdownRemark
-  const { products: ourPicks } = data.shopifyCollection
+  const featuredCollections = featured.nodes.sort((a, b) => {
+    const indexA = pageContext.featuredCollections.findIndex(el => el === a.title)
+    const indexB = pageContext.featuredCollections.findIndex(el => el === b.title)
+    return indexA - indexB
+  })
 
   return (
     <Layout className="index-page">
-      <IndexPageTemplate
-        image={frontmatter.image}
-        title={frontmatter.title}
-        heading={frontmatter.heading}
-        subheading={frontmatter.subheading}
-        mainpitch={frontmatter.mainpitch}
-        description={frontmatter.description}
-        intro={frontmatter.intro}
-        ourPicks={ ourPicks }
+      <div
+        className="full-width-image margin-top-0 hero-img"
+        style={{
+          backgroundImage: `url(${
+            !!image.childImageSharp ? image.childImageSharp.fluid.src : image
+          })`,
+        }}
+      >
+        <Link to={`/shop/${nameToURI(navLeft.collection)}`} className="landing-img-button">{ navLeft.label }</Link>
+        <Link to={`/shop/${nameToURI(navRight.collection)}`} className="landing-img-button">{ navRight.label }</Link>
+      </div>
+      { featuredCollections.map(collection => {
+        const { products, handle, title: colTitle } = collection
+        const title = <Link to={`/shop/${handle}`}>{ colTitle }</Link>
+        return <ProductCarousel key={ handle } {...{ title, products }} />
+      }) }
+      <CollectionCarousel
+        collections={ allShopifyCollection.nodes }
+        title="Other Collections"
       />
     </Layout>
   )
 }
 
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object,
-    }),
-  }),
-}
-
-export default IndexPage
+export default IndexPageTemplate
 
 export const query = graphql`
   fragment ProductFragment on ShopifyProduct {
@@ -118,42 +94,49 @@ export const query = graphql`
 `
 
 export const pageQuery = graphql`
-  query IndexPageTemplate {
-    shopifyCollection(title: {eq: "Our Picks"}) {
-      products {
-        ...ProductFragment
+  query IndexPageTemplate($id: String!, $featuredCollections: [String!]) {
+    featured: allShopifyCollection(filter: { title: { in: $featuredCollections }}) {
+      nodes {
+        title,
+        handle,
+        products {
+          ...ProductFragment
+        }
       }
     }
-    markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
-      frontmatter {
-        title
+    allShopifyCollection(filter: { title: { nin: $featuredCollections }}) {
+      nodes {
+        title,
+        handle,
         image {
-          childImageSharp {
-            fluid(maxWidth: 2048, quality: 100) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        heading
-        subheading
-        mainpitch {
-          title
-          description
-        }
-        description
-        intro {
-          blurbs {
-            image {
-              childImageSharp {
-                fluid(maxWidth: 240, quality: 64) {
-                  ...GatsbyImageSharpFluid
-                }
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 910) {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
               }
             }
-            text
           }
-          heading
-          description
+        }
+      }
+    }
+    markdownRemark(id: { eq: $id }) {
+      frontmatter {
+        heroBanner {
+          image {
+            childImageSharp {
+              fluid(maxWidth: 2048, quality: 100) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          navLeft {
+            label
+            collection
+          }
+          navRight {
+            label
+            collection
+          }
         }
       }
     }

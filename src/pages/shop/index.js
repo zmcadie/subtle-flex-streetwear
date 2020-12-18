@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useMemo } from "react"
 import { graphql, Link } from "gatsby"
 
 import { Layout, ProductCarousel, ProductFilter } from "../../components"
@@ -10,39 +10,40 @@ import "./styles.scss"
 const ProductsPage = ({ data }) => {
   const [ params ] = useQueryParams()
 
-  const types = useMemo(() => data.allShopifyProduct.group.map(type => {
-    const { fieldValue: title, nodes } = type
-    const handle = title.replace(/\s/g, "-").toLowerCase()
-    
-    const filter = product => {
-      const filters = data.allShopifyProductOption.distinct.filter(name => name !== "Title")
+  const types = useMemo(() => {
+    const productTypes = data.allShopifyProduct.group.map(type => {
+      const { fieldValue: title, nodes } = type
+      const handle = title.replace(/\s/g, "-").toLowerCase()
       
-      const filterFunc = name => () => {
-        const checkName = op => op.name === name
-        const checkValues = op => op.values.includes(params[name])
-        return product.options.some(op => checkName(op) && checkValues(op))
+      const filter = product => {
+        const filters = data.allShopifyProductOption.distinct.filter(name => name !== "Title")
+        
+        const filterFunc = name => () => {
+          const checkName = op => op.name === name
+          const checkValues = op => op.values.includes(params[name])
+          return product.options.some(op => checkName(op) && checkValues(op))
+        }
+        
+        const checks = []
+        checks.push(() => product.availableForSale)
+        filters.forEach(name => {
+          if (params[name]) checks.push(filterFunc(name))
+        })
+
+        return checks.every(check => check())
       }
+
+      const products = nodes.filter(filter)
       
-      const checks = []
-      checks.push(() => product.availableForSale)
-      filters.forEach(name => {
-        if (params[name]) checks.push(filterFunc(name))
-      })
-
-      return checks.every(check => check())
-    }
-
-    const products = nodes.filter(filter)
-    
-    if (products.length) {
-      return {
+      return products.length ? {
         key: handle,
         products,
         label: title,
         title: <Link to={ handle + buildQuery(params) }>{ title }</Link>
-      }
-    }
-  }).filter(el => !!el), [ params ])
+      } : null
+    })
+    return productTypes.filter(el => !!el)
+  }, [ params, data ])
 
   const filters = useMemo(() => {
     const { distinct, group } = data.allShopifyProductOption

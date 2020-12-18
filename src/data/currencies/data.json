@@ -1,0 +1,20 @@
+{
+  "currencies": [
+    {
+      "code": "CAD",
+      "symbol": "$"
+    },
+    {
+      "code": "USD",
+      "symbol": "$"
+    },
+    {
+      "code": "GBP",
+      "symbol": "£"
+    },
+    {
+      "code": "EUR",
+      "symbol": "€"
+    }
+  ]
+}

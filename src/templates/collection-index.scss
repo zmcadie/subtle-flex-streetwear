@@ -1,0 +1,23 @@
+@import "../utilities/variables";
+
+ul.collection-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $product-preview-width);
+  grid-gap: 40px;
+  grid-row-gap: 20px;
+  justify-content: center;
+  list-style: none;
+  padding: 30px 20px;
+
+  > h2 {
+    font-size: 24px;
+    font-weight: bold;
+    grid-column: 1 / -1;
+  }
+}
+
+@include mobile-sm {
+  ul.collection-grid-container {
+    grid-template-columns: $product-preview-width-mobile-sm;
+  }
+}

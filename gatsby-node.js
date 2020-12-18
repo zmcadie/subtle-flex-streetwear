@@ -20,6 +20,7 @@ exports.createPages = async ({ actions, graphql }) => {
             frontmatter {
               tags
               templateKey
+              featuredCollections
             }
           }
         }
@@ -27,34 +28,8 @@ exports.createPages = async ({ actions, graphql }) => {
       allShopifyProduct(sort: { fields: [title] }) {
         edges {
           node {
-            title
-            shopifyId
+            id
             handle
-            description
-            availableForSale
-            priceRange {
-              maxVariantPrice {
-                amount
-              }
-              minVariantPrice {
-                amount
-              }
-            }
-            images {
-              originalSrc
-            }
-            variants {
-              presentmentPrices {
-                edges {
-                  node {
-                    price {
-                      amount
-                      currencyCode
-                    }
-                  }
-                }
-              }
-            }
           }
         }
         group(field: productType) {
@@ -64,6 +39,14 @@ exports.createPages = async ({ actions, graphql }) => {
       allShopifyCollection {
         nodes {
           title
+        }
+      }
+      allShopifyShopPolicy {
+        nodes {
+          title
+          handle
+          url
+          body
         }
       }
     }
@@ -77,14 +60,15 @@ exports.createPages = async ({ actions, graphql }) => {
   const products = result.data.allShopifyProduct.edges
   const productTypes = result.data.allShopifyProduct.group
   const collections = result.data.allShopifyCollection.nodes
-  const posts = result.data.allMarkdownRemark.edges
+  const markdown = result.data.allMarkdownRemark.edges
+  const policies = result.data.allShopifyShopPolicy.nodes
 
   products.forEach(({ node }) => {
     createPage({
       path: `/shop/${node.handle}`,
       component: path.resolve(`./src/templates/product.js`),
       context: {
-        product: node,
+        id: node.id,
       },
     })
   })
@@ -114,7 +98,7 @@ exports.createPages = async ({ actions, graphql }) => {
   })
   
   collections.forEach(({ title }) => {
-    const collectionPath = `/shop/${nameToURI(title)}`
+    const collectionPath = `/shop/collections/${nameToURI(title)}`
     createPage({
       path: collectionPath,
       component: path.resolve(`./src/templates/product-collection.js`),
@@ -124,17 +108,40 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
 
-  posts.forEach((edge) => {
-    const id = edge.node.id
+  createPage({
+    path: `/shop/collections`,
+    component: path.resolve(`./src/templates/collection-index.js`)
+  })
+
+  markdown.forEach((edge) => {
+    const {
+      id,
+      fields: { slug },
+      frontmatter
+    } = edge.node
+
+    const { featuredCollections } = frontmatter
+
     createPage({
-      path: edge.node.fields.slug,
-      tags: edge.node.frontmatter.tags,
+      path: slug,
+      tags: frontmatter.tags,
       component: path.resolve(
-        `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+        `src/templates/${String(frontmatter.templateKey)}.js`
       ),
       context: {
         id,
+        ...featuredCollections && {
+          featuredCollections
+        }
       },
+    })
+  })
+
+  policies.forEach(policy => {
+    createPage({
+      path: policy.handle,
+      component: path.resolve(`src/templates/policy-page.js`),
+      context: policy,
     })
   })
 }

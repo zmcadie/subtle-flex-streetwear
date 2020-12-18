@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
+import "./styles.scss"
+
 const BreadcrumbNav = () => {
   const [ paths, setPaths ] = useState([])
 
   useEffect(() => {
     const from = window.history.state && window.history.state.from
-    const pathname = window.location.pathname.slice(1).split("/")
+    const pathname = window.location.pathname.split("/").filter(path => !!path)
+    const pathsArr = from && from !== "/"
+      ? [...from.split("/").filter(path => !!path), pathname[pathname.length - 1]]
+      : pathname
 
-    setPaths(from && from !== "/" ? [...from.slice(1).split("/"), pathname[pathname.length - 1]] : pathname)
+    setPaths(pathsArr)
   }, [])
   
   return (
@@ -28,6 +33,12 @@ const BreadcrumbNav = () => {
           </React.Fragment>
         )
       }) }
+      <Link
+        className="mobile-breadcrumb"
+        to={`/${paths.slice(0, paths.length - 1).join("/")}`}
+      >
+        { paths[paths.length - 2] || "home" }
+      </Link>
     </nav>
   )
 }

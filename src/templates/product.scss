@@ -1,0 +1,113 @@
+@import "../utilities/variables";
+
+.product-layout {
+  h1 {
+    border-bottom: 1px solid #ddd;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 40px 30px;
+
+    &.mobile-header {
+      margin: 20px 0 30px;
+    }
+  }
+}
+
+.product-container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 30px 40px 0;
+}
+
+.product-description {
+  margin: 20px 40px;
+
+  p {
+    margin: 1em 0;
+  }
+}
+
+.currency-display {
+  border-top: 1px solid #ddd;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 30px 40px 20px;
+}
+
+.image-display-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.image-display {
+  align-items: center;
+  display: flex;
+  height: 500px;
+  justify-content: center;
+  width: 500px;
+}
+
+.image-thumbnail-container {
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.image-thumbnail {
+  padding: 10px;
+
+  &.selected {
+    box-shadow: 0 0 4px 1px $subtle-light;
+  }
+}
+
+.add-to-cart-button {
+  display: block;
+  margin-left: 40px;
+  width: 200px;
+}
+
+@import "~bulma";
+
+@include desktop {
+  .mobile-header {
+    display: none;
+  }
+}
+
+@include touch {
+  .product-container {
+    flex-direction: column;
+  }
+
+  .image-display-container {
+    align-self: center;
+  }
+
+  .product-details h1 {
+    display: none;
+  }
+
+  .product-description, .currency-display, .add-to-cart-button {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 499px) {
+  .image-display-container {
+    width: 100vw;
+  }
+
+  .image-display {
+    height: 100vw;
+    width: 100vw;
+  }
+
+  .add-to-cart-button {
+    width: 100%;
+  }
+}

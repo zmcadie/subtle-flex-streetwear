@@ -69,7 +69,9 @@ const ProductTypeTemplate = ({ pageContext, data }) => {
     <Layout className="product-page-layout">
       <h1>{ pageContext.productType }</h1>
       <ProductFilter filters={ filters } />
-      { filteredCollections.map(col => <ProductCarousel {...col} />) }
+      { filteredCollections.map(col => {
+        return <ProductCarousel {...col} />
+      }) }
     </Layout>
   )
 }

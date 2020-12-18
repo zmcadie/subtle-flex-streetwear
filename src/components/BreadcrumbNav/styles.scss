@@ -31,3 +31,24 @@
     font-weight: bold;
   }
 }
+
+.mobile-breadcrumb {
+  position: relative;
+  visibility: hidden;
+
+  &::before {
+    content: "<";
+    position: absolute;
+    left: -15px;
+  }
+}
+
+@media (max-width: 499px) {
+  .mobile-breadcrumb {
+    visibility: visible;
+  }
+  
+  .breadcrumb-nav > *:not(.mobile-breadcrumb) {
+    display: none;
+  }
+}

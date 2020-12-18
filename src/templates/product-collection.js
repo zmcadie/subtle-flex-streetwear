@@ -53,7 +53,7 @@ const ProductCollectionTemplate = ({ pageContext, data }) => {
     }, {})
     
     return { names: uniqNames, options: uniqOptions }
-  }, [ collectionProducts ])
+  }, [ collectionProducts, productType ])
 
   const filteredProducts = useMemo(() => {
     const filterFunc = name => (product) => {
@@ -77,11 +77,10 @@ const ProductCollectionTemplate = ({ pageContext, data }) => {
       }, [])
 
     return filtered
-  }, [ collectionProducts, params, filters ])
+  }, [ collectionProducts, params, filters, productType ])
 
   return (
     <Layout className="product-page-layout">
-      {/* { !productType && <h1>{ title }</h1> } */}
       <h1>{ collectionTitle }</h1>
       <ProductFilter filters={ filters } />
       { productType

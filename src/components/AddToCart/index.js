@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react"
 import Button from "../Button"
 import StoreContext from "../../context/StoreContext"
 
+import "./styles.scss"
+
 const AddToCart = ({ productId, className, children, ...props }) => {
   const { addItemToCart, removeLineItem, store: { client, checkout }} = useContext(StoreContext)
   const [ lineItemId, setLineItemId ] = useState()

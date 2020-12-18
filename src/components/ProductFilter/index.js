@@ -1,44 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import { useQueryParams } from "../../utilities/hooks"
 
-// const sizeOrder = ["P","XS","S","M","L","XL","XXL","3XL","4XL","5XL"]
-// const sortSize = (a, b) => {
-// 	const indexA = sizeOrder.findIndex(el => el === a)
-// 	const indexB = sizeOrder.findIndex(el => el === b)
-// 	if ([indexA, indexB].includes(-1)) return indexB - indexA
-//   return indexA - indexB
-// }
+import "./styles.scss"
 
 const ProductFilter = ({ filters }) => {
   const [ open, setOpen ] = useState(false)
   const [ params, updateParams ] = useQueryParams()
 
-  // const filters = useMemo(() => {
-  //   if (!Object.keys(productOptions).length) return
-    
-  //   const { distinct, group } = productOptions
-    
-  //   const names = distinct.filter(type => type !== "Title")
-  //   const options = group.reduce((acc, cur) => {
-  //     const { fieldValue: name, nodes } = cur
-  //     if (name === "Title") return acc
-      
-  //     const uniqValues = [...new Set(nodes.reduce((arr, node) => [...arr, ...node.values], []))]
-  //     if (name === "Size") uniqValues.sort(sortSize)
-
-  //     const options = uniqValues.map(el => ({ value: el, label: el }))
-      
-  //     return { ...acc, [name]: options }
-  //   }, {})
-  //   return { names, options }
-  // }, [ productOptions ])
-  
   const updateFilter = name => newValue => {
     const newParams = { ...params }
     const { value } = newValue || {}
     
-    if (value == newParams[name]) return
+    if (value === newParams[name]) return
     if (!value) {
       delete newParams[name]
     } else {

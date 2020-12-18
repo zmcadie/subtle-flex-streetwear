@@ -1,5 +1,7 @@
 import React from "react"
-import ProductPreview from "../ProductPreview"
+import { ProductPreview } from "../ItemPreview"
+
+import "./styles.scss"
 
 const ProductGrid = ({ products, title, description }) => (
   <ul className="product-grid-container">

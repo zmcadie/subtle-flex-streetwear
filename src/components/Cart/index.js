@@ -3,6 +3,8 @@ import { Link } from 'gatsby'
 import StoreContext from "../../context/StoreContext"
 import { Button } from ".."
 
+import "./styles.scss"
+
 const X = ({ className, onClick, ...innerProps }) => (
   <button className={`x-close ${ className }`} {...{ onClick }}>
     <svg height="30" width="30" {...innerProps}>
@@ -33,7 +35,7 @@ const LineItem = ({ item }) => {
   return (
     <li className="cart-item" style={{ opacity: isRemoving ? 0.5 : 1 }}>
       <Link className="item-link" to={ `/product/${item.variant.product.handle}/` }>
-        <img src={ item.variant.image.src } />
+        <img src={ item.variant.image.src } alt={ item.handle } />
         <div className="item-details">
           <h2 className="item-title">{ item.title }</h2>
           <div className="item-price"><CurrencyDisplay {...{ price }} /></div>
@@ -45,7 +47,7 @@ const LineItem = ({ item }) => {
 }
 
 const Cart = () => {
-  const { isCartOpen, toggleCartOpen, store: { checkout, selected_currency } } = useContext(StoreContext)
+  const { isCartOpen, toggleCartOpen, store: { checkout } } = useContext(StoreContext)
   const overlayEl = useRef()
 
   const handleCheckout = () => {
@@ -99,16 +101,18 @@ const Cart = () => {
       if (event.target === event.currentTarget) toggleCartOpen()
     }
 
-    overlayEl.current.addEventListener("click", closeOnClick)
-    overlayEl.current.addEventListener("keydown", closeOnEsc)
-    overlayEl.current.addEventListener("keydown", captureFocusStart)
+    const overlay = overlayEl.current
+
+    overlay.addEventListener("click", closeOnClick)
+    overlay.addEventListener("keydown", closeOnEsc)
+    overlay.addEventListener("keydown", captureFocusStart)
     firstFocusable.addEventListener("keydown", captureFocusStart)
     lastFocusable.addEventListener("keydown", captureFocusEnd)
 
     return () => {
-      overlayEl.current.removeEventListener("click", closeOnClick)
-      overlayEl.current.removeEventListener("keydown", closeOnEsc)
-      overlayEl.current.removeEventListener("keydown", captureFocusStart)
+      overlay.removeEventListener("click", closeOnClick)
+      overlay.removeEventListener("keydown", closeOnEsc)
+      overlay.removeEventListener("keydown", captureFocusStart)
       firstFocusable.removeEventListener("keydown", captureFocusStart)
       lastFocusable.removeEventListener("keydown", captureFocusEnd)
     }

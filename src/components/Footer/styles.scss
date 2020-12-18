@@ -1,0 +1,97 @@
+@import "../../utilities/variables";
+
+@keyframes wiggle {
+  from {
+    transform: rotate(0deg);
+  }
+  
+  33% {
+    transform: rotate(5deg);
+  }
+  
+  66% {
+    transform: rotate(-5deg);
+  }
+}
+
+.custom-footer {
+  align-items: center;
+  background: $subtle-dark;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding: 20px 10px;
+}
+
+.socials-container {
+  max-width: 300px;
+}
+
+.social-icon {
+  height: 30px;
+  margin: 0 10px;
+
+  img {
+    height: inherit;
+  }
+
+  &:hover img {
+    animation: wiggle 0.3s ease-in-out;
+  }
+}
+
+nav.footer-nav {
+  color: white;
+  display: grid;
+  font-size: 14px;
+  padding: 40px 0 60px;
+  
+  h1 {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: inherit;
+    position: relative;
+
+    &::before {
+      @include absolute-full;
+      
+      background: white;
+      color: $subtle-dark;
+      content: attr(data-content);
+      line-height: 1.2;
+      overflow: hidden;
+      right: 100%;
+      white-space: nowrap;
+      transition: right 0.3s ease;
+    }
+
+    &:hover {
+      color: white;
+      
+      &::before {
+        right: 0;
+      }
+    }
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
+.payments-container {
+  display: flex;
+}
+
+.payments-icon {
+  width: 35px;
+  margin-left: 5px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

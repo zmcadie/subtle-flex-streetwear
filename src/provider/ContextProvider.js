@@ -13,25 +13,25 @@ const client = Client.buildClient(
   fetch
 )
 
-const ContextProvider = ({ children }) => {
-  let initialStoreState = {
-    client,
-    adding: false,
-    checkout: { lineItems: [] },
-    products: [],
-    shop: {},
-    selected_currency: {"code":"CAD","symbol":"$"}
-  }
+let initialStoreState = {
+  client,
+  adding: false,
+  checkout: { lineItems: [] },
+  products: [],
+  shop: {},
+  selected_currency: {"code":"CAD","symbol":"$"}
+}
 
+const ContextProvider = ({ children }) => {
   const [store, updateStore] = useState(initialStoreState)
-  let isRemoved = false
+  const [isRemoved, setIsRemoved] = useState(false)
 
   const [isCartOpen, setIsCartOpen] = useState(false)
   const toggleCartOpen = () => setIsCartOpen(!isCartOpen)
 
   useEffect(() => {
     const storedCurrency = storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency"))
-    if (storedCurrency) updateStore({...store, selected_currency: storedCurrency})
+    if (storedCurrency) updateStore({...initialStoreState, selected_currency: storedCurrency})
   }, [])
 
   useEffect(() => {
@@ -80,11 +80,11 @@ const ContextProvider = ({ children }) => {
     }
 
     initializeCheckout()
-  }, [store.client.checkout])
+  }, [store.client.checkout, isRemoved, store.selected_currency.code])
 
   useEffect(
     () => () => {
-      isRemoved = true
+      setIsRemoved(true)
     },
     []
   )

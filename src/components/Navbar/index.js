@@ -4,30 +4,26 @@ import Image from "gatsby-image"
 import StoreContext from "../../context/StoreContext"
 import { BreadcrumbNav } from ".."
 
-const currencyOptions = [
-  { label: "CAD $", value: { code: "CAD", symbol: "$" }},
-  { label: "USD $", value: { code: "USD", symbol: "$" }},
-  { label: "GBP £", value: { code: "GBP", symbol: "£" }},
-  { label: "EUR €", value: { code: "EUR", symbol: "€" }}
-]
+import "./styles.scss"
 
-const CurrencySelector = () => {
+const CurrencySelector = ({ currencies }) => {
   const { updateCurrency, store: { selected_currency } } = useContext(StoreContext)
   // const [ selected, setSelected ] = useState(0)
 
   const updateSelected = e => {
     const { value } = e.target
-    const cur = currencyOptions[value].value
+    const cur = currencies[value]
     updateCurrency(cur)
   }
 
   const getSelected = useMemo(() => (
-    currencyOptions.findIndex(op => selected_currency && op.value.code === selected_currency.code)
-  ), [selected_currency])
+    currencies.findIndex(op => selected_currency && op.code === selected_currency.code)
+  ), [selected_currency, currencies])
 
   return (
+    // eslint-disable-next-line
     <select className="nav-currency" value={ getSelected } onChange={ updateSelected }>
-      { currencyOptions.map((op, i) => <option key={ i } value={ i }>{ op.label }</option>) }
+      { currencies.map((op, i) => <option key={ i } value={ i }>{ op.code } { op.symbol }</option>) }
     </select>
   )
 }
@@ -81,12 +77,11 @@ const NavItem = ({ label, path, options }) => (
   </li>
 )
 
-const Navbar = ({ hideBreadcrumb = false }) => {
-  const { toggleCartOpen, store: { checkout } } = useContext(StoreContext)
+const Navbar = () => {
   const [ active, setActive ] = useState(false)
   const navBarActiveClass = active ? "is-active" : ""
 
-  const { allShopifyProduct, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
+  const { allShopifyProduct, infoPages, currenciesJson, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
     graphql`
       {
         allShopifyProduct {
@@ -101,6 +96,22 @@ const Navbar = ({ hideBreadcrumb = false }) => {
             ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
+        currenciesJson {
+          currencies {
+            code
+            symbol
+          }
+        }
+        infoPages: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "info-page"}}}) {
+          nodes {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+        }
       }
     `
   )
@@ -109,6 +120,11 @@ const Navbar = ({ hideBreadcrumb = false }) => {
     label: group.fieldValue,
     path: `/shop/${encodeURI(group.fieldValue.toLowerCase())}`
   })), [ allShopifyProduct ])
+
+  const infoOptions = useMemo(() => infoPages.nodes.map(page => ({
+    label: page.frontmatter.title,
+    path: page.fields.slug
+  })), [ infoPages ])
 
   const toggleHamburger = () => {
     setActive(!active)
@@ -122,7 +138,7 @@ const Navbar = ({ hideBreadcrumb = false }) => {
         aria-label="main-navigation"
       >
         <div className="navbar-left">
-          <CurrencySelector />
+          <CurrencySelector currencies={ currenciesJson.currencies } />
         </div>
         <Link to="/" className="navbar-logo-container" title="Logo">
           <Image
@@ -154,7 +170,7 @@ const Navbar = ({ hideBreadcrumb = false }) => {
         >
           <ul className="navbar-menu-items">
             <NavItem path="/shop"     label="Shop" options={ productTypes } />
-            <NavItem path="/about"    label="About" />
+            <NavItem path="/info"    label="Info"  options={ infoOptions } />
             <NavItem path="/blog"     label="Blog"  />
             <NavItem path="/contact"  label="Contact"  />
           </ul>
