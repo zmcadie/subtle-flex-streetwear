@@ -10,11 +10,11 @@ const ImageDisplay = ({ images }) => {
   const [ selected, setSelected ] = useState(images[0].localFile.childImageSharp.fluid)
 
   const getDimensions = () => {
-    const vw = window.innerWidth
+    const vw = window && window.innerWidth
     let selectedDimensions = selected.aspectRatio > 1
       ? { width: 500, height: 500 / selected.aspectRatio }
       : { height: 500, width: 500 * selected.aspectRatio }
-    if (vw < 500) {
+    if (vw && vw < 500) {
       selectedDimensions = selected.aspectRatio > 1
         ? { width: "100vw", height: `calc(100vw / ${selected.aspectRatio})` }
         : { height: "100vw", width: `calc(100vw * ${selected.aspectRatio})` }
