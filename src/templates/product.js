@@ -8,26 +8,33 @@ import "./product.scss"
 
 const ImageDisplay = ({ images }) => {
   const [ selected, setSelected ] = useState(images[0].localFile.childImageSharp.fluid)
+  const [ viewWidth, setViewWidth ] = useState()
 
-  const getDimensions = () => {
-    const vw = window && window.innerWidth
+  useEffect(() => {
+    setViewWidth(document.documentElement.clientWidth)
+    const updateViewWidth = () => setViewWidth(document.documentElement.clientWidth)
+    window.addEventListener("resize", updateViewWidth)
+    return () => window.removeEventListener("resize", updateViewWidth)
+  }, [])
+
+  const dimensions = useMemo(() => {
     let selectedDimensions = selected.aspectRatio > 1
       ? { width: 500, height: 500 / selected.aspectRatio }
       : { height: 500, width: 500 * selected.aspectRatio }
-    if (vw && vw < 500) {
+    if (viewWidth && viewWidth < 500) {
       selectedDimensions = selected.aspectRatio > 1
         ? { width: "100vw", height: `calc(100vw / ${selected.aspectRatio})` }
         : { height: "100vw", width: `calc(100vw * ${selected.aspectRatio})` }
     }
     return selectedDimensions
-  }
+  }, [viewWidth])
 
   return (
     <div className="image-display-container">
       <div className="image-display">
         <Image
           fluid={ selected }
-          style={ getDimensions() }
+          style={ dimensions }
         />
       </div>
       <ul className="image-thumbnail-container">
