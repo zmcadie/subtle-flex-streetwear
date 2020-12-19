@@ -36,7 +36,7 @@ const Footer = () => {
       <div className="socials-container">
         { socials.map(({ image, url }, i) => (
           <a key={ i } className="social-icon" target="_blank" rel="noreferrer" href={ url }>
-            <img src={ image } alt={ (url.match(/(?<=\.)(.*)(?=\.)/) || [])[0] || url } />
+            <img src={ image } alt={ url } />
           </a>
         )) }
       </div>
