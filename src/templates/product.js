@@ -27,7 +27,7 @@ const ImageDisplay = ({ images }) => {
         : { height: "100vw", width: `calc(100vw * ${selected.aspectRatio})` }
     }
     return selectedDimensions
-  }, [viewWidth])
+  }, [viewWidth, selected])
 
   return (
     <div className="image-display-container">
