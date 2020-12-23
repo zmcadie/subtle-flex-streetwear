@@ -1,0 +1,67 @@
+{
+  "header": {
+    "display": {
+      "showBlog": true,
+      "showContact": true
+    },
+    "labels": {
+      "shop": "Shop",
+      "info": "Info",
+      "blog": "Blog",
+      "contact": "Contact"
+    }
+  },
+  "footer": [
+    {
+      "columnLabel": "Info",
+      "links": [
+        {
+          "path": "/privacy-policy",
+          "label": "Privacy Policy"
+        },
+        {
+          "path": "/refund-policy",
+          "label": "Refund Policy"
+        },
+        {
+          "path": "/terms-of-service",
+          "label": "Terms of Service"
+        }
+      ]
+    },
+    {
+      "columnLabel": "About",
+      "links": [
+        {
+          "path": "/info/about-us",
+          "label": "About us"
+        },
+        {
+          "path": "/blog",
+          "label": "Blog"
+        },
+        {
+          "path": "/info/careers",
+          "label": "Careers"
+        }
+      ]
+    },
+    {
+      "columnLabel": "Customer Care",
+      "links": [
+        {
+          "path": "/info/faq",
+          "label": "FAQ"
+        },
+        {
+          "path": "/contact",
+          "label": "Contact us"
+        },
+        {
+          "path": "/info/sizing",
+          "label": "Sizing"
+        }
+      ]
+    }
+  ]
+}

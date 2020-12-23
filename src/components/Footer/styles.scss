@@ -40,11 +40,21 @@
   }
 }
 
-nav.footer-nav {
+nav.footer-nav > ul {
   color: white;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   font-size: 14px;
-  padding: 40px 0 60px;
+  padding: 40px 0 20px;
+
+  > li {
+    margin-bottom: 40px;
+    margin-right: 80px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
   
   h1 {
     font-weight: bold;
@@ -78,7 +88,7 @@ nav.footer-nav {
     }
   }
 
-  li {
+  ul li {
     margin-bottom: 4px;
   }
 }
@@ -93,5 +103,13 @@ nav.footer-nav {
 
   &:first-child {
     margin-left: 0;
+  }
+}
+
+@import "~bulma";
+
+@include mobile {
+  nav.footer-nav > ul {
+    flex-direction: column;
   }
 }

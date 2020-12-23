@@ -14,6 +14,8 @@ public_folder: /img
 collections:
   - name: "settings"
     label: "Settings"
+    editor:
+      preview: false
     files:
       - file: "src/data/socials/data.json"
         label: "Socials"
@@ -25,6 +27,34 @@ collections:
         name: "currencies"
         fields:
           - {label: Currencies, name: currencies, widget: list, fields: [{label: Code, name: code, widget: string}, {label: Symbol, name: symbol, widget: string}]}
+      - file: "src/data/navigation/data.json"
+        label: "Navigation"
+        name: "navigation"
+        fields:
+          - {label: "Header", name: "header", widget: "object", fields: [{label: "Display", name: "display", widget: "object", fields: [{label: "Show Blog", name: "showBlog", widget: "boolean"},{label: "Show Contact", name: "showContact", widget: "boolean"}]},{label: "Labels", name: "labels", widget: "object", fields: [{label: "Shop", name: "shop", widget: "string"},{label: "Info", name: "info", widget: "string"},{label: "Blog", name: "blog", widget: "string"},{label: "Contact", name: "contact", widget: "string"}]}]}
+          - {label: "Footer", name: "footer", widget: "list", fields: [{label: "Column Label", name: "columnLabel", widget: "string"},{label: "Links", name: "links", widget: "list", fields: [{label: "Path", name: "path", widget: "string"},{label: "Label", name: "label", widget: "string"}]}]}
+
+  - name: "landingPage"
+    label: "Landing Page"
+    editor:
+      preview: false
+    files:
+      - file: "src/pages/index.md"
+        label: "Page Content"
+        name: "index"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
+          - {label: "Hero Banner", name: "heroBanner", widget: object, fields: [{label: Image, name: image, widget: image},{label: Hero Left, name: heroLeft, widget: object, fields: [{label: Label, name: label, widget: string},{label: Collection, name: collection, widget: collectionSelect}]},{label: Hero Right, name: heroRight, widget: object, fields: [{label: Label, name: label, widget: string},{label: Collection, name: collection, widget: collectionSelect}]}]}
+          - {label: "Featured Collections", name: "featuredCollections", widget: list, field: {label: "Collection", name: "collection", widget: "collectionSelect"}}
+
+  - name: "infoPages"
+    label: "Info Pages"
+    folder: "src/pages/info"
+    create: true
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "info-page"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "blog"
     label: "Blog"
@@ -41,45 +71,3 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
   
-  - name: "info"
-    label: "Info"
-    folder: "src/pages/info"
-    create: true
-    fields:
-      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "info-page"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-
-  - name: "pages"
-    label: "Pages"
-    files:
-      - file: "src/pages/index.md"
-        label: "Landing Page"
-        name: "index"
-        fields:
-          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
-          - {label: "Hero Banner", name: "heroBanner", widget: object, fields: [{label: Image, name: image, widget: image},{label: Hero Left, name: heroLeft, widget: object, fields: [{label: Label, name: label, widget: string},{label: Collection, name: collection, widget: collectionSelect}]},{label: Hero Right, name: heroRight, widget: object, fields: [{label: Label, name: label, widget: string},{label: Collection, name: collection, widget: collectionSelect}]}]}
-          - {label: "Featured Collections", name: "featuredCollections", widget: list, fields: [
-              {label: "Collection", name: "collection", widget: "collectionSelect"}
-            ]}
-      # - file: "src/pages/about/index.md"
-      #   label: "About"
-      #   name: "about"
-      #   fields:
-      #     - {label: "Template Key", name: "templateKey", widget: "hidden", default: "about-page"}
-      #     - {label: "Title", name: "title", widget: "string"}
-      #     - {label: "Body", name: "body", widget: "markdown"}
-      # - file: "src/pages/shop/index.md"
-      #   label: "Products Page"
-      #   name: "shop"
-      #   fields:
-      #     - {label: "Template Key", name: "templateKey", widget: "hidden", default: "product-page"}
-      #     - {label: Title, name: title, widget: string}
-      #     - {label: Image, name: image, widget: image}
-      #     - {label: Heading, name: heading, widget: string}
-      #     - {label: Description, name: description, widget: string}
-      #     - {label: Intro, name: intro, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: text}, {label: Blurbs, name: blurbs, widget: list, fields: [{label: Image, name: image, widget: image}, {label: Text, name: text, widget: text}]}]}
-      #     - {label: Main, name: main, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: text}, {label: Image1, name: image1, widget: object, fields: [{label: Image, name: image, widget: image}, {label: Alt, name: alt, widget: string}]}, {label: Image2, name: image2, widget: object, fields: [{label: Image, name: image, widget: image}, {label: Alt, name: alt, widget: string}]}, {label: Image3, name: image3, widget: object, fields: [{label: Image, name: image, widget: image}, {label: Alt, name: alt, widget: string}]}]}
-      #     - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
-      #     - {label: Full_image, name: full_image, widget: image}
-      #     - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}

@@ -12,7 +12,7 @@ import visa from "../../../static/img/payment/visa.svg"
 import "./styles.scss"
 
 const Footer = () => {
-  const { allShopifyShopPolicy, socialsJson: { socials }} = useStaticQuery(
+  const { allShopifyShopPolicy, navigationJson, socialsJson: { socials }} = useStaticQuery(
     graphql`
       {
         socialsJson {
@@ -25,6 +25,15 @@ const Footer = () => {
           nodes {
             title
             handle
+          }
+        }
+        navigationJson {
+          footer {
+            columnLabel
+            links {
+              label
+              path
+            }
           }
         }
       }
@@ -42,16 +51,18 @@ const Footer = () => {
       </div>
       <nav className="footer-nav">
         <ul>
-          <li>
-            <h1>Info</h1>
-            <ul>
-              { allShopifyShopPolicy.nodes.map(({ title, handle }) => (
-                <li key={ handle }>
-                  <Link to={ `/${ handle }` } data-content={ title }>{ title }</Link>
-                </li>
-              )) }
-            </ul>
-          </li>
+          { navigationJson.footer.map((column, i) => (
+            <li>
+              <h1>{ column.columnLabel }</h1>
+              <ul>
+                { column.links.map(({ label, path }) => (
+                  <li key={ path }>
+                    <Link to={ path } data-content={ label }>{ label }</Link>
+                  </li>
+                )) }
+              </ul>
+            </li>
+          )) }
         </ul>
       </nav>
       <div className="payments-container" aria-label="available payment methods">

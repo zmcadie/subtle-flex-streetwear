@@ -81,7 +81,7 @@ const Navbar = () => {
   const [ active, setActive ] = useState(false)
   const navBarActiveClass = active ? "is-active" : ""
 
-  const { allShopifyProduct, infoPages, currenciesJson, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
+  const { allShopifyProduct, infoPages, currenciesJson, navigationJson, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
     graphql`
       {
         allShopifyProduct {
@@ -112,9 +112,25 @@ const Navbar = () => {
             }
           }
         }
+        navigationJson {
+          header {
+            display {
+              showBlog
+              showContact
+            }
+            labels {
+              shop
+              info
+              blog
+              contact
+            }
+          }
+        }
       }
     `
   )
+
+  const { header: { display: { showBlog, showContact }, labels }} = navigationJson
 
   const productTypes = useMemo(() => allShopifyProduct.group.map(group => ({
     label: group.fieldValue,
@@ -169,10 +185,10 @@ const Navbar = () => {
           className={`custom-navbar-menu ${ navBarActiveClass }`}
         >
           <ul className="navbar-menu-items">
-            <NavItem path="/shop"     label="Shop" options={ productTypes } />
-            <NavItem path="/info"    label="Info"  options={ infoOptions } />
-            <NavItem path="/blog"     label="Blog"  />
-            <NavItem path="/contact"  label="Contact"  />
+            <NavItem path="/shop" label={ labels.shop } options={ productTypes } />
+            <NavItem path="/info" label={ labels.info } options={ infoOptions } />
+            { showBlog && <NavItem path="/blog" label={ labels.blog } /> }
+            { showContact && <NavItem path="/contact" label={ labels.contact } /> }
           </ul>
         </div>
       </nav>
