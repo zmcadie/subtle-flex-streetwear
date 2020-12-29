@@ -46,6 +46,19 @@
     padding: 20px;
   }
 
+  .preview-currency-display {
+    display: flex;
+    
+    .discounted {
+      align-self: center;
+      color: #aaa;
+      font-size: 14px;
+      font-weight: normal;
+      margin-left: 8px;
+      text-decoration: line-through;
+    }
+  }
+
   .add-to-cart-button {
     margin: 0 20px 20px;
     width: $product-preview-width - 40px;

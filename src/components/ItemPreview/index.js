@@ -9,11 +9,21 @@ import "./styles.scss"
 
 const CurrencyDisplay = ({ cost }) => {
   const { store: { selected_currency: { code, symbol }}} = useContext(StoreContext)
-  const price = cost[code]
-  const float = Number.parseFloat(price)
-  const isRound = Math.round(float) === float
-  const displayPrice = (Math.round(float * 100) / 100).toFixed(isRound ? 0 : 2)
-  return `${symbol}${displayPrice}`
+  
+  const price = Number.parseFloat(cost[code][0])
+  const isRound = Math.round(price) === price
+  const displayPrice = `${symbol}${price.toFixed(isRound ? 0 : 2)}`
+
+  const original = Number.parseFloat(cost[code][1])
+  const originalIsRound = Math.round(original) === original
+  const originalDisplay = `${symbol}${original.toFixed(originalIsRound ? 0 : 2)}`
+
+  return (
+    <p className="preview-currency-display">
+      { displayPrice }
+      { original ? <span className="discounted">{ originalDisplay }</span> : "" }
+    </p>
+  )
 }
 
 const Img = ({ firstImage, secondImage, alt }) => {
@@ -64,31 +74,32 @@ export const ProductPreview = ({ product, ...innerProps }) => {
     images: [firstImage, secondImage],
     title,
     handle,
-    variants
+    variants: [{
+      shopifyId,
+      presentmentPrices
+    }]
   } = product
 
-  const prices = useMemo(() => variants.reduce((acc, cur) => {
-    cur.presentmentPrices.edges.forEach(({ node }) => {
-      const { price: { amount, currencyCode }} = node
-      const missingPrice = !acc[currencyCode]
-      const newAmountIsLower = Number.parseFloat(acc[currencyCode]) > Number.parseFloat(amount)
-      if (missingPrice || newAmountIsLower) acc[currencyCode] = amount
-    })
-    return acc
-  }, {}), [ variants ])
+  const prices = useMemo(() => presentmentPrices.edges.reduce((acc, cur) => {
+    const { compareAtPrice, price: { amount, currencyCode }} = cur.node
+    return {
+      ...acc,
+      [currencyCode]: [amount, compareAtPrice ? compareAtPrice.amount : null]
+    }
+  }, {}), [ presentmentPrices ])
 
   const path = `/shop/${ handle }`
   const image = { firstImage, secondImage, alt: handle }
   const content = (
     <>
       <p>{ title }</p>
-      <p><CurrencyDisplay cost={ prices } /></p>
+      <CurrencyDisplay cost={ prices } />
     </>
   )
   const Action = (props) => (
     <AddToCart
       {...props}
-      productId={ variants[0].shopifyId }
+      productId={ shopifyId }
     />
   )
 

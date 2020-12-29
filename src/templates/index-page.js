@@ -79,9 +79,17 @@ export const query = graphql`
     }
     variants {
       shopifyId
+      selectedOptions {
+        name
+        value
+      }
       presentmentPrices {
         edges {
           node {
+            compareAtPrice {
+              amount
+              currencyCode
+            }
             price {
               amount
               currencyCode

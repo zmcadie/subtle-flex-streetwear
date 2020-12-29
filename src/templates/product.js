@@ -45,8 +45,10 @@ const ImageDisplay = ({ images }) => {
             <li
               key={ i }
               className={`image-thumbnail ${isSelected ? "selected" : ""}`}
-              onMouseEnter={() => setSelected(fluid)}
-              onClick={() => setSelected(fluid)}
+              onMouseEnter={e => e.target.focus()}
+              onClick={e => e.target.focus()}
+              onFocus={() => setSelected(fluid)}
+              tabIndex="0"
             >
               <Image
                 fluid={ fluid }
@@ -62,11 +64,16 @@ const ImageDisplay = ({ images }) => {
 
 const CurrencyDisplay = ({ cost }) => {
   const { store: { selected_currency: { code, symbol }}} = useContext(StoreContext)
-  const price = cost[code]
-  const float = Number.parseFloat(price)
-  const isRound = Math.round(float) === float
-  const displayPrice = (Math.round(float * 100) / 100).toFixed(isRound ? 0 : 2)
-  return <div className="currency-display">{symbol}{displayPrice}</div>
+  
+  const displayPrice = `${symbol}${Number.parseFloat(cost[code][0]).toFixed(2)}`
+  const original = cost[code][1] ? `${symbol}${Number.parseFloat(cost[code][1]).toFixed(2)}` : null
+  
+  return (
+    <div className="currency-display">
+      { displayPrice }
+      { original ? <span className="discounted">{original}</span> : "" }
+    </div>
+  )
 }
 
 const ProductTemplate = ({ data }) => {
@@ -76,15 +83,16 @@ const ProductTemplate = ({ data }) => {
     descriptionHtml,
     variants: [{
       shopifyId,
-      presentmentPrices
+      presentmentPrices,
+      selectedOptions
     }]
   } = data.shopifyProduct
 
   const cost = useMemo(() => presentmentPrices.edges.reduce((acc, cur) => {
-    const { price: { amount, currencyCode }} = cur.node
+    const { compareAtPrice, price: { amount, currencyCode }} = cur.node
     return {
       ...acc,
-      [currencyCode]: amount
+      [currencyCode]: [amount, compareAtPrice ? compareAtPrice.amount : null]
     }
   }, {}), [ presentmentPrices ])
 
@@ -95,7 +103,7 @@ const ProductTemplate = ({ data }) => {
         <ImageDisplay {...{ images }} />
         <div className="product-details">
           <h1>{ title }</h1>
-          {/* { product.images.map(({originalSrc: src}, i) => <img {...{key:i, alt:"", src}} />) } */}
+          { selectedOptions.map(({name, value}, i) => <div className="product-option" key={ i }><b>{name}:</b> {value}</div>) }
           <div className="product-description" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           <CurrencyDisplay {...{ cost }} />
           <AddToCart productId={ shopifyId } />
