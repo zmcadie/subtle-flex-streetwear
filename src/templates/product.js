@@ -2,13 +2,23 @@ import React, { useMemo, useContext, useEffect, useState } from "react"
 import { graphql } from 'gatsby'
 import Image from "gatsby-image"
 import StoreContext from "../context/StoreContext"
-import { Layout, AddToCart } from "../components"
+import { Layout, AddToCart, ProductCarousel } from "../components"
+import Client from 'shopify-buy'
 
 import "./product.scss"
+
+const client = Client.buildClient(
+  {
+    storefrontAccessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
+    domain: `${process.env.GATSBY_SHOPIFY_SHOP_NAME}.myshopify.com`,
+  },
+  fetch
+)
 
 const ImageDisplay = ({ images }) => {
   const [ selected, setSelected ] = useState(images[0].localFile.childImageSharp.fluid)
   const [ viewWidth, setViewWidth ] = useState()
+  // const [ ]
 
   useEffect(() => {
     setViewWidth(document.documentElement.clientWidth)
@@ -76,11 +86,30 @@ const CurrencyDisplay = ({ cost }) => {
   )
 }
 
+const Recommended = ({ tags }) => {
+  const [ products, setProducts ] = useState([])
+
+  useEffect(() => {
+    const query = tags.join(" OR ")
+    client.product.fetchQuery({ query }).then(recommended => {
+      if (recommended) setProducts(recommended)
+    })
+  }, [])
+
+  return (
+    <ProductCarousel
+      title="Recommended Products"
+      {...{ products }}
+    />
+  )
+}
+
 const ProductTemplate = ({ data }) => {
   const {
     title,
     images,
     descriptionHtml,
+    tags,
     variants: [{
       shopifyId,
       presentmentPrices,
@@ -109,6 +138,7 @@ const ProductTemplate = ({ data }) => {
           <AddToCart productId={ shopifyId } />
         </div>
       </div>
+      <Recommended {...{ tags }} />
     </Layout>
   )
 }

@@ -27,21 +27,32 @@ const CurrencyDisplay = ({ cost }) => {
 }
 
 const Img = ({ firstImage, secondImage, alt }) => {
-  const hasFirst = firstImage && firstImage.localFile
-  const hasSecond = secondImage && secondImage.localFile
-  return hasFirst ? (
-    <BackgroundImage
+  if (!firstImage || (!firstImage.localFile && !firstImage.src)) return ""
+  
+  const hasLocal = firstImage.localFile
+  const hasSecond = secondImage && (hasLocal ? secondImage.localFile : secondImage.src)
+
+  const Image = hasLocal ? BackgroundImage : "div"
+  const firstBg = hasLocal
+    ? { fluid: firstImage.localFile.childImageSharp.fluid }
+    : { style: { backgroundImage: `url(${firstImage.src})` }}
+  const secondBg = hasLocal
+    ? { fluid: (hasSecond ? secondImage : firstImage).localFile.childImageSharp.fluid }
+    : { style: { backgroundImage: `url(${(hasSecond ? secondImage : firstImage).src})` }}
+
+  return (
+    <Image
       className={`item-preview-image ${ !hasSecond ? "zoom-transition" : ""}`}
-      fluid={ (hasSecond ? secondImage : firstImage).localFile.childImageSharp.fluid }
       alt={ alt }
+      {...secondBg}
     >
-      <BackgroundImage
+      <Image
         className="item-preview-image transition-on-hover"
-        fluid={ firstImage.localFile.childImageSharp.fluid }
         alt={ alt }
+        {...firstBg}
       />
-    </BackgroundImage>
-  ) : ""
+    </Image>
+  )
 }
 
 const ItemPreview = ({
@@ -50,6 +61,7 @@ const ItemPreview = ({
   content,
   Action,
   preventTab,
+  from,
   ...innerProps
 }) => {
   const [ pathname, setPathname ] = useState("")
@@ -60,7 +72,7 @@ const ItemPreview = ({
 
   return (
     <li className="item-preview-container" {...innerProps}>
-      <Link to={ path } state={{ from: pathname }} {...preventTab && { tabIndex: "-1" }}>
+      <Link to={ path } state={{ from: from ? from : pathname }} {...preventTab && { tabIndex: "-1" }}>
         <Img {...image} />
         <h3>{ content }</h3>
         { Action && <Action {...preventTab && { tabIndex: "-1" }} /> }
@@ -75,13 +87,14 @@ export const ProductPreview = ({ product, ...innerProps }) => {
     title,
     handle,
     variants: [{
+      id,
       shopifyId,
       presentmentPrices
     }]
   } = product
 
-  const prices = useMemo(() => presentmentPrices.edges.reduce((acc, cur) => {
-    const { compareAtPrice, price: { amount, currencyCode }} = cur.node
+  const prices = useMemo(() => (presentmentPrices.edges || presentmentPrices).reduce((acc, cur) => {
+    const { compareAtPrice, price: { amount, currencyCode }} = (cur.node || cur)
     return {
       ...acc,
       [currencyCode]: [amount, compareAtPrice ? compareAtPrice.amount : null]
@@ -99,7 +112,7 @@ export const ProductPreview = ({ product, ...innerProps }) => {
   const Action = (props) => (
     <AddToCart
       {...props}
-      productId={ shopifyId }
+      productId={ shopifyId || id }
     />
   )
 

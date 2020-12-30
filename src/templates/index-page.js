@@ -37,8 +37,14 @@ const IndexPageTemplate = ({ data, pageContext }) => {
       </div>
       { featuredCollections.map(collection => {
         const { products, handle, title: colTitle } = collection
-        const title = <Link to={`/shop/${handle}`}>{ colTitle }</Link>
-        return <ProductCarousel key={ handle } {...{ title, products }} />
+        const title = <Link to={`/shop/collections/${handle}`}>{ colTitle }</Link>
+        return (
+          <ProductCarousel
+            key={ handle }
+            from={ `/shop/collections/${handle}` }
+            {...{ title, products }}
+          />
+        )
       }) }
       <CollectionCarousel
         collections={ allShopifyCollection.nodes }
@@ -57,6 +63,7 @@ export const query = graphql`
     shopifyId
     handle
     productType
+    tags
     options {
       name
       values

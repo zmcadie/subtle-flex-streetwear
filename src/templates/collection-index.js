@@ -10,7 +10,7 @@ const CollectionIndex = ({ data }) => {
     <Layout>
       <ul className="collection-grid-container">
         { data.allShopifyCollection.nodes.map((collection, i) => (
-          <CollectionPreview {...{ collection }} />
+          <CollectionPreview key={ i } {...{ collection }} />
         )) }
       </ul>
     </Layout>

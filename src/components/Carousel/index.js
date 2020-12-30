@@ -89,7 +89,7 @@ const Carousel = ({ title, items, ListItem }) => {
   )
 }
 
-export const ProductCarousel = ({ products, title }) => {
+export const ProductCarousel = ({ products, title, from }) => {
   const items = useMemo(() => (
     products.filter(product => product.availableForSale)
   ), [ products ])
@@ -98,6 +98,7 @@ export const ProductCarousel = ({ products, title }) => {
     <ProductPreview
       product={ item }
       preventTab={ isOverflow }
+      {...{ from }}
     />
   )
 
