@@ -48,24 +48,62 @@ $link-hover-bg: #ddd7 !important;
   grid-column: 3;
   grid-row: 1;
   justify-content: flex-end;
+  padding-right: 20px;
 }
 
-.nav-search {
-  background: transparent;
-  border: none;
-  color: #444;
-  padding: 13px 10px 10px;
+.search-container {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 10px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   
-  svg {
-    overflow: visible;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-width: 3;
+  input {
+    background: white;
+    border: 1px solid #444;
+    border-radius: 20px;
+    height: 24px;
+    left: 100%;
+    max-width: 150px;
+    padding: 2px 5px;
+    position: absolute;
+    transition: left 0.2s;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
   }
-  
-  circle {
-    fill: none;
-    stroke-width: 2;
+
+  .nav-search {
+    background: transparent;
+    border: none;
+    color: #444;
+    padding: 13px 10px 10px;
+    
+    svg {
+      overflow: visible;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-width: 3;
+    }
+    
+    circle {
+      fill: none;
+      stroke-width: 2;
+    }
+  }
+
+  &.is-open {
+    input {
+      left: 0%;
+    }
+
+    .nav-search {
+      visibility: hidden;
+    }
   }
 }
   
@@ -106,40 +144,6 @@ $link-hover-bg: #ddd7 !important;
   }
 }
   
-// .navbar.custom-navbar {
-//   box-shadow: 0 2px 4px 0 #0003;
-
-//   > .container {
-//     flex-direction: column;
-//     align-items: center;
-//   }
-
-//   .navbar-brand {
-//     align-items: center;
-//     display: grid;
-//     grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
-//     margin-top: 8px;
-
-//     button.navbar-burger {
-//       background: transparent;
-//       border: none;
-//     }
-//   }
-
-//   .navbar-logo-container {
-//     grid-column: 2;
-//     padding-top: 0;
-    
-//     .navbar-logo {
-//       width: 100vw;
-//     }
-    
-//     .navbar-logo, img {
-//       max-height: unset;
-//     }
-//   }
-// }
-
 .custom-navbar-menu {
   justify-self: center;
   grid-column: 2;
@@ -262,23 +266,6 @@ $link-hover-bg: #ddd7 !important;
 }
 
 @import "~bulma";
-
-// @include desktop {
-//   .navbar.custom-navbar > .container {
-//     max-width: unset;
-
-//     .navbar-brand {
-//       margin-left: 0;
-
-//       a {
-//         padding-bottom: 0;
-//       }
-//     }
-//     .navbar-menu {
-//       margin-right: 0;
-//     }
-//   }
-// }
 
 @include touch {
   .floating-cart {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import Select from 'react-select'
 import { useQueryParams } from "../../utilities/hooks"
 
@@ -21,14 +21,26 @@ const ProductFilter = ({ filters }) => {
     updateParams(newParams)
   }
 
-  return filters ? (
+  const handleClear = () => {
+    const newParams = { ...params }
+    filters.names.forEach(name => {
+      delete newParams[name]
+    })
+    updateParams(newParams)
+  }
+
+  const filterCount = useMemo(() => {
+    return Object.keys(params).filter(key => filters.names.includes(key)).length
+  }, [ params, filters ])
+
+  return filters && filters.names.length ? (
     <>
       <button className="filter-toggle-button" onClick={ () => setOpen(!open) }>
         Filter products
-        { Object.keys(params).length ? <span>({ Object.keys(params).length })</span> : "" }
+        { filterCount ? <span>({ filterCount })</span> : "" }
       </button>
-      { Object.keys(params).length ? (
-        <button className="filter-clear-button" onClick={ () => updateParams({}) }>
+      { filterCount ? (
+        <button className="filter-clear-button" onClick={ handleClear }>
           clear
         </button>
       ) : "" }
@@ -46,8 +58,6 @@ const ProductFilter = ({ filters }) => {
               styles={{
                 control: prov => ({
                   ...prov,
-                  // border: "none",
-                  // borderBottom: "1px solid #ddd",
                   minHeight: '30px',
                   height: '30px',
                   borderRadius: '1px'

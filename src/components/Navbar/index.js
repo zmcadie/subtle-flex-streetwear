@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useContext } from 'react'
-import { Link, graphql, useStaticQuery } from 'gatsby'
+import React, { useState, useMemo, useContext, useRef, useEffect } from 'react'
+import { Link, graphql, useStaticQuery, navigate } from 'gatsby'
 import Image from "gatsby-image"
 import StoreContext from "../../context/StoreContext"
 import { BreadcrumbNav } from ".."
@@ -29,13 +29,38 @@ const CurrencySelector = ({ currencies }) => {
 }
 
 const NavSearch = () => {
+  const [ isOpen, setIsOpen ] = useState(false)
+  // const [ query, setQuery ] = useState("")
+  const inputRef = useRef()
+  
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      if (isOpen) inputRef.current.focus()
+    }, 300)
+    return () => window.clearTimeout(timeout)
+  }, [ isOpen ])
+
+  const handleEnter = ({ key, target: { value } }) => {
+    if (key === "Enter") {
+      navigate(`/search?query=${encodeURI(value)}`)
+    }
+  }
+  
   return (
-    <button className="nav-search">
-      <svg height="20" width="20" strokeWidth="2">
-        <circle cx="8" cy="8" r="8" />
-        <line x1="15" y1="15" x2="20" y2="20" />
-      </svg>
-    </button>
+    <div className={`search-container ${ isOpen ? "is-open" : "" }`}>
+      <input
+        ref={ inputRef }
+        disabled={ !isOpen }
+        onKeyDown={ handleEnter }
+        onBlur={ () => setIsOpen(false) }
+      />
+      <button className="nav-search" onClick={ () => setIsOpen(true) }>
+        <svg height="20" width="20" strokeWidth="2">
+          <circle cx="8" cy="8" r="8" />
+          <line x1="15" y1="15" x2="20" y2="20" />
+        </svg>
+      </button>
+    </div>
   )
 }
 

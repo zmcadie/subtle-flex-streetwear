@@ -90,8 +90,8 @@ const Recommended = ({ tags }) => {
   const [ products, setProducts ] = useState([])
 
   useEffect(() => {
-    const query = tags.join(" OR ")
-    client.product.fetchQuery({ query }).then(recommended => {
+    const query = `availableForSale:true AND (${tags.join(" OR ")})`
+    if (!products.length) client.product.fetchQuery({ query }).then(recommended => {
       if (recommended) setProducts(recommended)
     })
   }, [])
@@ -132,8 +132,9 @@ const ProductTemplate = ({ data }) => {
         <ImageDisplay {...{ images }} />
         <div className="product-details">
           <h1>{ title }</h1>
-          { selectedOptions.map(({name, value}, i) => <div className="product-option" key={ i }><b>{name}:</b> {value}</div>) }
+          { selectedOptions.filter(({name}) => name !== "Title").map(({name, value}, i) => <div className="product-option" key={ i }><b>{name}:</b> {value}</div>) }
           <div className="product-description" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+          { tags.map((tag, i) => <span key={ i } className="product-tag">•&nbsp;&nbsp;{ tag }</span>)}
           <CurrencyDisplay {...{ cost }} />
           <AddToCart productId={ shopifyId } />
         </div>

@@ -1,0 +1,92 @@
+@import "../../utilities/variables";
+
+.search-page-layout {
+  h1 {
+    border-bottom: 1px solid #ddd;
+    font-size: 28px;
+    font-weight: bold;
+    grid-column: 2;
+    margin: 20px 40px;
+    text-transform: uppercase;
+  }
+}
+
+.refine-action {
+  border: none;
+  background: none;
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 0 20px;
+  padding: 10px 0 5px;
+  // text-decoration: underline;
+
+  &:focus {
+    color: $link-blue;
+    outline: none;
+  }
+}
+
+.refine-search-container {
+  margin-bottom: 10px;
+  margin-top: -10px;
+  overflow: hidden;
+  padding: 0 40px;
+
+  label {
+    display: block;
+    font-size: 14px;
+  }
+
+  input {
+    border: 1px solid #444;
+    border-radius: 20px;
+    height: 30px;
+    margin: 5px 0 10px;
+    max-width: 300px;
+    padding: 5px 10px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: $link-blue;
+    }
+  }
+}
+
+.state-display {
+  grid-column: 1 / -1;
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  ul {
+    font-weight: bold;
+    list-style: disc;
+    margin: 10px 0 10px 30px;
+  }
+}
+
+@keyframes fadein1 { from { opacity: 0 } 9% { opacity: 0 } 10% { opacity: 1 } to { opacity: 1 } }
+@keyframes fadein2 { from { opacity: 0 } 19% { opacity: 0 } 20% { opacity: 1 } to { opacity: 1 } }
+@keyframes fadein3 { from { opacity: 0 } 29% { opacity: 0 } 30% { opacity: 1 } to { opacity: 1 } }
+
+.loading-results {
+  font-weight: bold;
+
+  i {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    display: inline-block;
+    font-style: normal;
+
+    &:nth-child(1) { animation-name: fadein1 }
+    &:nth-child(2) { animation-name: fadein2 }
+    &:nth-child(3) { animation-name: fadein3 }
+  }
+}
+
+.product-grid-container.loading {
+  opacity: 0.5;
+}

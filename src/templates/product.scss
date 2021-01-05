@@ -18,6 +18,16 @@
   }
 }
 
+.product-tag {
+  background: $subtle-dark;
+  border-radius: 10px 4px 4px 10px;
+  color: white;
+  font-size: 10px;
+  height: 20px;
+  margin: 0 10px 0 0;
+  padding: 5px 6px;
+}
+
 .product-container {
   display: flex;
   margin: 0 auto;
