@@ -23,7 +23,10 @@ export const useQueryParams = () => {
   useEffect(() => {
     listeners.push(newListener)
     updateParams(parseQuery(window.location))
-    return () => listeners = listeners.filter(listener => listener !== newListener)
+    return () => {
+      listeners = listeners.filter(listener => listener !== newListener)
+      if (!listeners.length) params = {}
+    }
   }, [ newListener ])
   
   return [ params || {}, updateParams ]

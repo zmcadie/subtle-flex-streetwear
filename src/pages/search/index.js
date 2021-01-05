@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef, forwardRef } from "react"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
 import Client from "shopify-buy"
 import { Link } from "gatsby"
 
@@ -16,7 +16,7 @@ const client = Client.buildClient(
   fetch
 )
 
-const RefineSearch = forwardRef((_, ref) => {
+const RefineSearch = () => {
   const [{ query }, updateParams] = useQueryParams()
   const [ newQuery, setNewQuery ] = useState("")
 
@@ -42,21 +42,18 @@ const RefineSearch = forwardRef((_, ref) => {
         value={ newQuery || "" }
         onChange={ e => setNewQuery(e.target.value) }
         onKeyDown={ handleEnter }
-        {...{ ref }}
       />
       { query === newQuery ? "" : (
         <button className="refine-action" onClick={ updateQuery }>search</button>
       ) }
     </div>
   )
-})
+}
 
 const SearchPage = () => {
   const [{ query, ...params }] = useQueryParams()
-  const [ prevQuery, setPrevQuery ] = useState()
   const [ isLoading, setIsLoading ] = useState(false)
   const [ results, setResults ] = useState({ exact: [], close: [] })
-  const refineRef = useRef()
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -79,10 +76,7 @@ const SearchPage = () => {
       setIsLoading(false)
     }
     
-    if (query) {
-      fetchResults()
-      return () => setPrevQuery(query)
-    }
+    if (query) fetchResults()
   }, [ query ])
   
   const filteredResults = useMemo(() => {
@@ -97,7 +91,7 @@ const SearchPage = () => {
         if (params[name]) checks.push(filterFunc(name))
       })
 
-      return [checks.every(check => check())]
+      return checks.every(check => check())
     }
 
     const exactResultsTitles = results.exact.map(prod => prod.title)
@@ -105,7 +99,7 @@ const SearchPage = () => {
       if (!productFilter(product)) return false
       return !exactResultsTitles.includes(product.title)
     }
-
+    
     return {
       exact: results.exact.filter(productFilter),
       close: results.close.filter(closeFilter)
@@ -156,13 +150,12 @@ const SearchPage = () => {
     const EmptyDisplay = () => (
       <div className="state-display">
         <p>Whoops, looks like nothing matches <b>"{ query }"</b>.</p>
-        <p>Here are some things you can try:
-          <ul>
-            <li>Refine your search above</li>
-            <li><Link to="/shop">Browse all our products</Link></li>
-            { filteredResults.close.length ? <li>Check out similar products below</li> : "" }
-          </ul>
-        </p>
+        <p>Here are some things you can try:</p>
+        <ul>
+          <li>Refine your search above</li>
+          <li><Link to="/shop">Browse all our products</Link></li>
+          { filteredResults.close.length ? <li>Check out similar products below</li> : "" }
+        </ul>
       </div>
     )
 
