@@ -162,7 +162,7 @@ $link-hover-bg: #ddd7 !important;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
-  a.navbar-item {
+  a.navbar-item, div.navbar-item {
     color: #444;
     padding: 8px 30px 16px;
     position: relative;
@@ -187,6 +187,10 @@ $link-hover-bg: #ddd7 !important;
       background: $link-hover-bg;
       color: #444;
     }
+  }
+
+  div.navbar-item {
+    display: none;
   }
   
   .navbar-item-menu {
@@ -215,10 +219,27 @@ $link-hover-bg: #ddd7 !important;
     > :last-child a {
       padding-bottom: 16px;
     }
-  }
 
-  &:hover .navbar-item-menu {
-    visibility: visible;
+    &.open {
+      visibility: visible;
+    }
+  }
+}
+
+.navbar-mobile-actions {
+  background: white;
+  display: none;
+
+  .search-container {
+    input {
+      font-size: 16px;
+      position: unset;
+      width: 100%;
+    }
+
+    .nav-search {
+      visibility: inherit;
+    }
   }
 }
 
@@ -269,6 +290,25 @@ $link-hover-bg: #ddd7 !important;
 @import "~bulma";
 
 @include touch {
+  .navbar-mobile-actions {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+
+    .nav-currency {
+      border: none;
+      display: block;
+      font-size: 16px;
+    }
+
+    .search-container {
+      width: auto;
+    }
+  }
+
   .floating-cart {
     display: initial;
   }
@@ -296,6 +336,8 @@ $link-hover-bg: #ddd7 !important;
   }
 
   .custom-navbar-menu {
+    background: white;
+    box-shadow: 0 2px 2px 0 #0003;
     grid-column: span 3;
     height: 0px;
     position: absolute;
@@ -316,12 +358,29 @@ $link-hover-bg: #ddd7 !important;
     }
   }
 
-  .navbar-item-container a.navbar-item.drop-down {
-    padding-right: 30px;
+  .navbar-item-container {
+    .navbar-item-menu {
+      text-align: center;
+      width: 100%;
+    }
+    
+    a.navbar-item, div.navbar-item {
+      &.desktop-only {
+        display: none;
+      }
 
-    &::after {
-      margin-left: 10px;
-      right: unset;
+      &.touch-only {
+        display: block;
+      }
+
+      &.drop-down {
+        padding-right: 30px;
+
+        &::after {
+          margin-left: 10px;
+          right: unset;
+        }
+      }
     }
   }
 }

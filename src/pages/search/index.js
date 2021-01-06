@@ -39,6 +39,7 @@ const RefineSearch = () => {
       </label>
       <input
         id="refine-search"
+        type="search"
         value={ newQuery || "" }
         onChange={ e => setNewQuery(e.target.value) }
         onKeyDown={ handleEnter }

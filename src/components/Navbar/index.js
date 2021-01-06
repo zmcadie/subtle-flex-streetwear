@@ -28,7 +28,7 @@ const CurrencySelector = ({ currencies }) => {
   )
 }
 
-const NavSearch = () => {
+const NavSearch = ({ isMobile }) => {
   const [ isOpen, setIsOpen ] = useState(false)
   // const [ query, setQuery ] = useState("")
   const inputRef = useRef()
@@ -45,16 +45,24 @@ const NavSearch = () => {
       navigate(`/search?query=${encodeURI(value)}`)
     }
   }
+
+  const handleClick = () => {
+    if (isMobile) {
+      navigate(`/search?query=${encodeURI(inputRef.current.value)}`)
+    } else {
+      setIsOpen(true)
+    }
+  }
   
   return (
     <div className={`search-container ${ isOpen ? "is-open" : "" }`}>
       <input
         ref={ inputRef }
-        disabled={ !isOpen }
+        disabled={ !isOpen && !isMobile }
         onKeyDown={ handleEnter }
         onBlur={ () => setIsOpen(false) }
       />
-      <button className="nav-search" onClick={ () => setIsOpen(true) }>
+      <button className="nav-search" onClick={ handleClick }>
         <svg height="20" width="20" strokeWidth="2">
           <circle cx="8" cy="8" r="8" />
           <line x1="15" y1="15" x2="20" y2="20" />
@@ -89,18 +97,42 @@ const NavCart = () => {
   )
 }
 
-const NavItem = ({ label, path, options }) => (
-  <li className="navbar-item-container">
-    <Link className={`navbar-item ${ options ? "drop-down" : "" }`} to={ path }>{ label }</Link>
-    {
-      options ? (
-        <ul className="navbar-item-menu">
-          { options.map((op, i) => <li key={i}><Link to={ op.path }>{ op.label }</Link></li>) }
-        </ul>
-      ) : ""
+const NavItem = ({ label, path, options }) => {
+  const [ open, setOpen ] = useState(false)
+
+  const handleSpace = ({ code, key }) => {
+    if (options && (code === "Space" || key === "Spacebar")) {
+      setOpen(!open)
     }
-  </li>
-)
+  }
+
+  return (
+    <li
+      className="navbar-item-container"
+      {...options && {
+        onMouseEnter: () => setOpen(true),
+        onMouseLeave: () => setOpen(false)
+      }}
+    >
+      <Link
+        to={ path }
+        onKeyDown={ handleSpace }
+        className={`navbar-item ${ options ? "drop-down desktop-only" : "" }`}
+      >{ label }</Link>
+      <div
+        onClick={ () => setOpen(!open) }
+        className={`navbar-item ${ options ? "drop-down touch-only" : "" }`}
+      >{ label }</div>
+      {
+        options ? (
+          <ul className={`navbar-item-menu ${ open ? "open" : "" }`}>
+            { options.map((op, i) => <li key={i}><Link to={ op.path }>{ op.label }</Link></li>) }
+          </ul>
+        ) : ""
+      }
+    </li>
+  )
+}
 
 const Navbar = () => {
   const [ active, setActive ] = useState(false)
@@ -209,6 +241,10 @@ const Navbar = () => {
           id="navbar-menu"
           className={`custom-navbar-menu ${ navBarActiveClass }`}
         >
+          <div className="navbar-mobile-actions">
+            <CurrencySelector currencies={ currenciesJson.currencies } />
+            <NavSearch isMobile={ true } />
+          </div>
           <ul className="navbar-menu-items">
             <NavItem path="/shop" label={ labels.shop } options={ productTypes } />
             <NavItem path="/info" label={ labels.info } options={ infoOptions } />

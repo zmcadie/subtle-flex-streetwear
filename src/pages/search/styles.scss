@@ -17,7 +17,7 @@
   color: #444;
   font-size: 14px;
   font-weight: 500;
-  margin: 0 0 0 20px;
+  margin: 0;
   padding: 10px 0 5px;
   // text-decoration: underline;
 
@@ -42,7 +42,7 @@
     border: 1px solid #444;
     border-radius: 20px;
     height: 30px;
-    margin: 5px 0 10px;
+    margin: 5px 20px 10px 0px;
     max-width: 300px;
     padding: 5px 10px;
     width: 100%;
@@ -89,4 +89,12 @@
 
 .product-grid-container.loading {
   opacity: 0.5;
+}
+
+@import "~bulma";
+
+@include touch {
+  #refine-search {
+    font-size: 16px;
+  }
 }
