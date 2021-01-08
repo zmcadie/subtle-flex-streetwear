@@ -72,3 +72,14 @@ export const sortSize = (a, b) => {
 	if ([indexA, indexB].includes(-1)) return indexB - indexA
   return indexA - indexB
 }
+
+export const getCurrencySymbol = (locale, currency) => {
+  const symbol = (0).toLocaleString(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).replace(/\d/g, '').trim()
+
+  return symbol.slice(-1) === "$" ? "$" : symbol
+}

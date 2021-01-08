@@ -6,24 +6,24 @@ import { BreadcrumbNav } from ".."
 
 import "./styles.scss"
 
-const CurrencySelector = ({ currencies }) => {
-  const { updateCurrency, store: { selected_currency } } = useContext(StoreContext)
+const CurrencySelector = () => {
+  const { updateCurrency, store: { selected_currency, available_currencies } } = useContext(StoreContext)
   // const [ selected, setSelected ] = useState(0)
 
   const updateSelected = e => {
     const { value } = e.target
-    const cur = currencies[value]
+    const cur = available_currencies[value]
     updateCurrency(cur)
   }
 
   const getSelected = useMemo(() => (
-    currencies.findIndex(op => selected_currency && op.code === selected_currency.code)
-  ), [selected_currency, currencies])
+    available_currencies.findIndex(op => selected_currency && op.code === selected_currency.code)
+  ), [selected_currency, available_currencies])
 
   return (
     // eslint-disable-next-line
     <select className="nav-currency" value={ getSelected } onChange={ updateSelected }>
-      { currencies.map((op, i) => <option key={ i } value={ i }>{ op.code } { op.symbol }</option>) }
+      { available_currencies.map((op, i) => <option key={ i } value={ i }>{ op.code } { op.symbol }</option>) }
     </select>
   )
 }
@@ -138,7 +138,7 @@ const Navbar = () => {
   const [ active, setActive ] = useState(false)
   const navBarActiveClass = active ? "is-active" : ""
 
-  const { allShopifyProduct, infoPages, currenciesJson, navigationJson, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
+  const { allShopifyProduct, infoPages, navigationJson, imageSharp: { fluid: logo_fluid }} = useStaticQuery(
     graphql`
       {
         allShopifyProduct {
@@ -151,12 +151,6 @@ const Navbar = () => {
             presentationHeight
             presentationWidth
             ...GatsbyImageSharpFluid_withWebp_tracedSVG
-          }
-        }
-        currenciesJson {
-          currencies {
-            code
-            symbol
           }
         }
         infoPages: allMarkdownRemark(filter: {frontmatter: {templateKey: {eq: "info-page"}}}) {
@@ -211,7 +205,7 @@ const Navbar = () => {
         aria-label="main-navigation"
       >
         <div className="navbar-left">
-          <CurrencySelector currencies={ currenciesJson.currencies } />
+          <CurrencySelector />
         </div>
         <Link to="/" className="navbar-logo-container" title="Logo">
           <Image
@@ -242,7 +236,7 @@ const Navbar = () => {
           className={`custom-navbar-menu ${ navBarActiveClass }`}
         >
           <div className="navbar-mobile-actions">
-            <CurrencySelector currencies={ currenciesJson.currencies } />
+            <CurrencySelector />
             <NavSearch isMobile={ true } />
           </div>
           <ul className="navbar-menu-items">

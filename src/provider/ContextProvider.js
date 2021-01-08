@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Client from 'shopify-buy'
 
 import Context from '../context/StoreContext'
-import { storageAvailable } from "../utilities/utils"
+import { storageAvailable, getCurrencySymbol } from "../utilities/utils"
 
 const client = Client.buildClient(
   {
@@ -19,7 +19,8 @@ let initialStoreState = {
   checkout: { lineItems: [] },
   products: [],
   shop: {},
-  selected_currency: {"code":"CAD","symbol":"$"}
+  selected_currency: {"code":"CAD","symbol":"$"},
+  available_currencies: [{"code":"CAD","symbol":"$"}]
 }
 
 const ContextProvider = ({ children }) => {
@@ -30,6 +31,22 @@ const ContextProvider = ({ children }) => {
   const toggleCartOpen = () => setIsCartOpen(!isCartOpen)
 
   useEffect(() => {
+    client.shop.fetchInfo().then(shop => {
+      const presentment = shop.paymentSettings.enabledPresentmentCurrencies
+      const formatCurrencies = presentment.map(({ key }) => ({
+        code: key,
+        symbol: getCurrencySymbol("en-CA", key)
+      }))
+      const storedCurrency = (storageAvailable("localStorage")
+        && JSON.parse(localStorage.getItem("user_currency")))
+        || initialStoreState.selected_currency
+      
+      updateStore({
+        ...initialStoreState,
+        selected_currency: storedCurrency,
+        available_currencies: formatCurrencies
+      })
+    })
     const storedCurrency = storageAvailable("localStorage") && JSON.parse(localStorage.getItem("user_currency"))
     if (storedCurrency) updateStore({...initialStoreState, selected_currency: storedCurrency})
   }, [])

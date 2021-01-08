@@ -15,10 +15,10 @@ const X = ({ className, onClick, ...innerProps }) => (
   </button>
 )
 
-const CurrencyDisplay = ({ price }) => {
-  const { store: { selected_currency: { symbol }}} = useContext(StoreContext)
+const CurrencyDisplay = ({ price, showCode=false }) => {
+  const { store: { selected_currency: { code, symbol }}} = useContext(StoreContext)
   const displayPrice = (Math.round(Number.parseFloat(price.amount) * 100) / 100).toFixed(2)
-  return `${symbol}${displayPrice}`
+  return `${ showCode ? code + " " : "" }${ symbol }${ displayPrice }`
 }
 
 const LineItem = ({ item }) => {
@@ -138,7 +138,7 @@ const Cart = () => {
           <div className="cart-footer">
             <div className="cart-subtotal">
               <h2>Cart Subtotal</h2>
-              { checkout.subtotalPriceV2 && <CurrencyDisplay price={ checkout.subtotalPriceV2 } /> }
+              { checkout.subtotalPriceV2 && <CurrencyDisplay showCode={ true } price={ checkout.subtotalPriceV2 } /> }
               <p className="tax-disclaimer">Shipping & taxes calculated at checkout</p>
             </div>
             <Button

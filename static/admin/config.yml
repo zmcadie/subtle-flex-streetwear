@@ -22,11 +22,6 @@ collections:
         name: "socials"
         fields:
           - {label: Socials, name: socials, widget: list, fields: [{label: Image, name: image, widget: image}, {label: URL, name: url, widget: string}]}
-      - file: "src/data/currencies/data.json"
-        label: "Currencies"
-        name: "currencies"
-        fields:
-          - {label: Currencies, name: currencies, widget: list, fields: [{label: Code, name: code, widget: string}, {label: Symbol, name: symbol, widget: string}]}
       - file: "src/data/navigation/data.json"
         label: "Navigation"
         name: "navigation"
