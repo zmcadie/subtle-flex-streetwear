@@ -8,7 +8,13 @@ heroBanner:
   navRight:
     label: Shop Women's Vintage
     collection: Womens
+  heroLeft:
+    label: Shop Men's Apparel
+    collection: Men's Jackets
+  heroRight:
+    label: Shop Women's Apparel
+    collection: Women's Jackets
 featuredCollections:
   - Our Picks
-  - Flannel
+  - Men's Jackets
 ---
