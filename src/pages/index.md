@@ -11,4 +11,5 @@ heroBanner:
 featuredCollections:
   - Our Picks
   - Men's Jackets
+  - Men's Jackets
 ---
