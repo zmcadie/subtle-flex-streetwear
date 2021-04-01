@@ -4,12 +4,12 @@ heroBanner:
   image: /img/tomato-soup-sweater.jpg
   heroLeft:
     label: Shop Men's Apparel
-    collection: Men's Jackets
+    collection: Men's T-Shirts
   heroRight:
-    label: Shop Women's Apparel
-    collection: Women's Jackets
+    label: NIKE OVERLOAD
+    collection: NIKE OVERLOAD
 featuredCollections:
-  - Our Picks
   - Men's Jackets
-  - Men's Jackets
+  - Men's Sweatshirts
+  - Men's T-Shirts
 ---
