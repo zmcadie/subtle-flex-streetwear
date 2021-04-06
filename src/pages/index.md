@@ -6,7 +6,7 @@ heroBanner:
     label: Shop Men's Apparel
     collection: Men's T-Shirts
   heroRight:
-    label: NIKE OVERLOAD
+    label: NIKE OVERLOAD!
     collection: NIKE OVERLOAD
 featuredCollections:
   - NIKE OVERLOAD
