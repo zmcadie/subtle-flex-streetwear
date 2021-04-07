@@ -9,7 +9,7 @@ heroBanner:
     label: NIKE OVERLOAD!
     collection: NIKE OVERLOAD
 featuredCollections:
-  - Men's Jackets
-  - NIKE OVERLOAD
   - Men's T-Shirts
+  - NIKE OVERLOAD
+  - Men's Sweaters
 ---
