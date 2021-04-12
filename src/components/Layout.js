@@ -56,10 +56,10 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
 
           <meta property="og:type" content="business.business" />
           <meta property="og:title" content={title} />
-          <meta property="og:url" content="/" />
+          <meta property="og:url" content="https://subtleflexstreetwear.com" />
           <meta
             property="og:image"
-            content={`${withPrefix('/')}${heroImg.markdownRemark.frontmatter.heroBanner.image.childImageSharp.fluid.src.slice(1)}`}
+            content={`${withPrefix('https://subtleflexstreetwear.com')}${heroImg.markdownRemark.frontmatter.heroBanner.image.childImageSharp.fluid.src}`}
           />
         </Helmet>
         <Navbar />
