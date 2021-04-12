@@ -11,8 +11,8 @@ const IndexPageTemplate = ({ data, pageContext }) => {
   const { frontmatter: {
     heroBanner: {
       image,
-      navLeft,
-      navRight
+      heroLeft,
+      heroRight
     }
   }} = markdownRemark
 
@@ -32,8 +32,8 @@ const IndexPageTemplate = ({ data, pageContext }) => {
           })`,
         }}
       >
-        <Link to={`/shop/${nameToURI(navLeft.collection)}`} className="landing-img-button">{ navLeft.label }</Link>
-        <Link to={`/shop/${nameToURI(navRight.collection)}`} className="landing-img-button">{ navRight.label }</Link>
+        <Link to={`/shop/${nameToURI(heroLeft.collection)}`} className="landing-img-button">{ heroLeft.label }</Link>
+        <Link to={`/shop/${nameToURI(heroRight.collection)}`} className="landing-img-button">{ heroRight.label }</Link>
       </div>
       { featuredCollections.map(collection => {
         const { products, handle, title: colTitle } = collection
@@ -144,11 +144,11 @@ export const pageQuery = graphql`
               }
             }
           }
-          navLeft {
+          heroLeft {
             label
             collection
           }
-          navRight {
+          heroRight {
             label
             collection
           }

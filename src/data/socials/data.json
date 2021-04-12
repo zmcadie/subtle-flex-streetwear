@@ -2,15 +2,11 @@
   "socials": [
     {
       "image": "/img/white_facebook_icon.png",
-      "url": "https://www.facebook.com"
-    },
-    {
-      "image": "/img/white_twitter_icon.png",
-      "url": "https://www.twitter.com"
+      "url": "https://www.facebook.com/Subtleflexstreetwear"
     },
     {
       "image": "/img/white_insta_icon.png",
-      "url": "https://www.instagram.com"
+      "url": "https://www.instagram.com/subtle.flex.streetwear/"
     },
     {
       "image": "/img/white_youtube_icon.png",
@@ -18,7 +14,7 @@
     },
     {
       "image": "/img/white_email_icon.png",
-      "url": "mailto:test@example.com"
+      "url": "subtleflexstreetwear@gmail.com"
     }
   ]
 }
