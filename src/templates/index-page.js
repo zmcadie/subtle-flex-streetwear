@@ -32,8 +32,8 @@ const IndexPageTemplate = ({ data, pageContext }) => {
           })`,
         }}
       >
-        <Link to={`/shop/${nameToURI(heroLeftQuery.handle)}`} className="landing-img-button">{ heroLeft.label }</Link>
-        <Link to={`/shop/${nameToURI(heroRightQuery.handle)}`} className="landing-img-button">{ heroRight.label }</Link>
+        <Link to={`/shop/collections/${nameToURI(heroLeftQuery.handle)}`} className="landing-img-button">{ heroLeft.label }</Link>
+        <Link to={`/shop/collections/${nameToURI(heroRightQuery.handle)}`} className="landing-img-button">{ heroRight.label }</Link>
       </div>
       { featuredCollections.map(collection => {
         const { products, handle, title: colTitle } = collection

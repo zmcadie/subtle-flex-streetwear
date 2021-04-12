@@ -187,7 +187,7 @@ const Navbar = () => {
 
   const productTypes = useMemo(() => allShopifyProduct.group.map(group => ({
     label: group.fieldValue,
-    path: `/shop/collections/${nameToURI(group.fieldValue)}`
+    path: `/shop/${nameToURI(group.fieldValue)}`
   })), [ allShopifyProduct ])
 
   const infoOptions = useMemo(() => infoPages.nodes.map(page => ({
