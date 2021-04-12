@@ -7,7 +7,7 @@ import { nameToURI } from '../utilities/utils'
 import './index-page.scss'
 
 const IndexPageTemplate = ({ data, pageContext }) => {
-  const { markdownRemark, allShopifyCollection, featured } = data
+  const { markdownRemark, allShopifyCollection, featured, heroLeftQuery, heroRightQuery } = data
   const { frontmatter: {
     heroBanner: {
       image,
@@ -32,8 +32,8 @@ const IndexPageTemplate = ({ data, pageContext }) => {
           })`,
         }}
       >
-        <Link to={`/shop/${nameToURI(heroLeft.collection)}`} className="landing-img-button">{ heroLeft.label }</Link>
-        <Link to={`/shop/${nameToURI(heroRight.collection)}`} className="landing-img-button">{ heroRight.label }</Link>
+        <Link to={`/shop/${nameToURI(heroLeftQuery.handle)}`} className="landing-img-button">{ heroLeft.label }</Link>
+        <Link to={`/shop/${nameToURI(heroRightQuery.handle)}`} className="landing-img-button">{ heroRight.label }</Link>
       </div>
       { featuredCollections.map(collection => {
         const { products, handle, title: colTitle } = collection
@@ -109,7 +109,7 @@ export const query = graphql`
 `
 
 export const pageQuery = graphql`
-  query IndexPageTemplate($id: String!, $featuredCollections: [String!]) {
+  query IndexPageTemplate($id: String!, $heroLeft: String!, $heroRight: String!, $featuredCollections: [String!]) {
     featured: allShopifyCollection(filter: { title: { in: $featuredCollections }}) {
       nodes {
         title,
@@ -118,6 +118,12 @@ export const pageQuery = graphql`
           ...ProductFragment
         }
       }
+    }
+    heroLeftQuery: shopifyCollection(title: { eq: $heroLeft }) {
+      handle
+    }
+    heroRightQuery: shopifyCollection(title: { eq: $heroRight }) {
+      handle
     }
     allShopifyCollection(filter: { title: { nin: $featuredCollections }}) {
       nodes {

@@ -6,6 +6,8 @@ import { BreadcrumbNav } from ".."
 
 import "./styles.scss"
 
+const nameToURI = name => encodeURI(name.replace(/\s/g, "-").toLowerCase())
+
 const CurrencySelector = () => {
   const { updateCurrency, store: { selected_currency, available_currencies } } = useContext(StoreContext)
   // const [ selected, setSelected ] = useState(0)
@@ -185,7 +187,7 @@ const Navbar = () => {
 
   const productTypes = useMemo(() => allShopifyProduct.group.map(group => ({
     label: group.fieldValue,
-    path: `/shop/${encodeURI(group.fieldValue.toLowerCase())}`
+    path: `/shop/${nameToURI(group.fieldValue)}`
   })), [ allShopifyProduct ])
 
   const infoOptions = useMemo(() => infoPages.nodes.map(page => ({

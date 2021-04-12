@@ -21,6 +21,14 @@ exports.createPages = async ({ actions, graphql }) => {
               tags
               templateKey
               featuredCollections
+              heroBanner {
+                heroLeft {
+                  collection
+                }
+                heroRight {
+                  collection
+                }
+              }
             }
           }
         }
@@ -39,6 +47,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allShopifyCollection {
         nodes {
           title
+          handle
         }
       }
       allShopifyShopPolicy {
@@ -83,9 +92,8 @@ exports.createPages = async ({ actions, graphql }) => {
         productType
       },
     })
-    collections.forEach(({ title }) => {
-      const collectionURI = nameToURI(title)
-      const collectionPath = `/shop/${typeURI}/${collectionURI}`
+    collections.forEach(({ title, handle }) => {
+      const collectionPath = `/shop/${typeURI}/${handle}`
       createPage({
         path: collectionPath,
         component: path.resolve(`./src/templates/product-collection.js`),
@@ -97,8 +105,8 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
   
-  collections.forEach(({ title }) => {
-    const collectionPath = `/shop/collections/${nameToURI(title)}`
+  collections.forEach(({ title, handle }) => {
+    const collectionPath = `/shop/collections/${handle}`
     createPage({
       path: collectionPath,
       component: path.resolve(`./src/templates/product-collection.js`),
@@ -120,7 +128,7 @@ exports.createPages = async ({ actions, graphql }) => {
       frontmatter
     } = edge.node
 
-    const { featuredCollections } = frontmatter
+    const { featuredCollections, heroBanner } = frontmatter
 
     createPage({
       path: slug,
@@ -132,6 +140,10 @@ exports.createPages = async ({ actions, graphql }) => {
         id,
         ...featuredCollections && {
           featuredCollections
+        },
+        ...heroBanner && {
+          heroLeft: heroBanner.heroLeft.collection,
+          heroRight: heroBanner.heroRight.collection
         }
       },
     })
