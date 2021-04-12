@@ -5,11 +5,28 @@ import Navbar from '../components/Navbar'
 import Cart from '../components/Cart'
 import './all.scss'
 import useSiteMetadata from './SiteMetadata'
-import { withPrefix } from 'gatsby'
+import { withPrefix, useStaticQuery, graphql } from 'gatsby'
 import ContextProvider from '../provider/ContextProvider'
 
 const TemplateWrapper = ({ children, ...innerProps }) => {
   const { title, description } = useSiteMetadata()
+  const heroImg = useStaticQuery(graphql`
+    query HeroImage {
+      markdownRemark(fields: {slug: {eq: "/"}}) {
+        frontmatter {
+          heroBanner {
+            image {
+              childImageSharp {
+                fluid {
+                  src
+                }
+              }
+            }
+          }
+        }
+      }
+    }  
+  `)
   return (
     <ContextProvider>
       <div {...innerProps}>
@@ -20,8 +37,8 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
 
           <link
             rel="apple-touch-icon"
-            sizes="180x180"
-            href={`${withPrefix('/')}img/apple-touch-icon.png`}
+            sizes="32x32"
+            href={`${withPrefix('/')}img/favicon-32x32.png`}
           />
           <link
             rel="icon"
@@ -35,12 +52,6 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
             href={`${withPrefix('/')}img/favicon-16x16.png`}
             sizes="16x16"
           />
-
-          <link
-            rel="mask-icon"
-            href={`${withPrefix('/')}img/safari-pinned-tab.svg`}
-            color="#ff4400"
-          />
           <meta name="theme-color" content="#fff" />
 
           <meta property="og:type" content="business.business" />
@@ -48,7 +59,7 @@ const TemplateWrapper = ({ children, ...innerProps }) => {
           <meta property="og:url" content="/" />
           <meta
             property="og:image"
-            content={`${withPrefix('/')}img/og-image.jpg`}
+            content={`${withPrefix('/')}${heroImg.markdownRemark.frontmatter.heroBanner.image.childImageSharp.fluid.src.slice(1)}`}
           />
         </Helmet>
         <Navbar />
