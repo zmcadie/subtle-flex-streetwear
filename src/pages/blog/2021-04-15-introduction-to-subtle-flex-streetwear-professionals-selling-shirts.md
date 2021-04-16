@@ -2,7 +2,7 @@
 templateKey: blog-post
 title: Introduction to Subtle Flex Streetwear - Professionals Selling Shirts?!?!
 date: 2021-04-15T21:22:52.655Z
-description: Selling Vintage Clothing Online To A Discerning Client Base
+description: Selling vintage clothing to a discerning client base.
 featuredpost: true
 featuredimage: /img/shirt_folding_cleaning_tools.jpeg
 tags:
