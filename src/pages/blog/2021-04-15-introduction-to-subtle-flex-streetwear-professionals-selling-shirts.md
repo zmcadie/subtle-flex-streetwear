@@ -19,6 +19,10 @@ tags:
   - oxi-clean
   - shoes
 ---
+![Black t-shirt folding, pill remover, with shoe renew kit, steamer, oxi-clean, and bagged shirts.](/img/shirt_folding_cleaning_tools.jpeg "Folding A Shirt Ready To Ship")
+
+
+
 1. Shirts, Jerseys, Sweatshirts and Hoodies are inspected and noted of any flaws. 
 
 2. Stained items are soaked in an Oxi-clean bath before machine washing. 
