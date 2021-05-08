@@ -10,6 +10,6 @@ heroBanner:
     collection: Outerwear
 featuredCollections:
   - T-Shirts
-  - Jerseys
+  - Sportswear
   - Outerwear
 ---
