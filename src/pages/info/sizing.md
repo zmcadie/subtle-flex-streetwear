@@ -1,18 +1,23 @@
 ---
-templateKey: 'info-page'
-title: Sizing
+templateKey: info-page
+title: Confusing Clothing Sizes or Sizing Clothing Scientifically?
 ---
-### Shade-grown coffee
-Coffee is a small tree or shrub that grows in the forest understory in its wild form, and traditionally was grown commercially under other trees that provided shade. The forest-like structure of shade coffee farms provides habitat for a great number of migratory and resident species.
+### Subjective S, M, L, XL, XXL Sizing is WTF!?!?!
 
-### Single origin
-Single-origin coffee is coffee grown within a single known geographic origin. Sometimes, this is a single farm or a specific collection of beans from a single country. The name of the coffee is then usually the place it was grown to whatever degree available.
+Going by subjective S, M, L type sizing to figure out what will fit often ends in "This Is What I Paid For, This Is What I Got" Instagram and Pinterest posts. 
 
-### Sustainable farming
-Sustainable agriculture is farming in sustainable ways based on an understanding of ecosystem services, the study of relationships between organisms and their environment. What grows where and how it is grown are a matter of choice and careful consideration for nature and communities.
+Your M us not the same as my M, and I swear that the L fit me last week...
 
-### Direct sourcing
-Direct trade is a form of sourcing practiced by some coffee roasters. Advocates of direct trade practices promote direct communication and price negotiation between buyer and farmer, along with systems that encourage and incentivize quality.
+How do you avoid this absolute DISASTER?
 
-### Reinvest profits
-We want to truly empower the communities that bring amazing coffee to you. That’s why we reinvest 20% of our profits into farms, local businesses and schools everywhere our coffee is grown. You can see the communities grow and learn more about coffee farming on our blog.
+### Measure It!
+
+To avoid sizing disasters always go with the actual measurements. This shouldn't change - 40" will be 40"...but a S can also be 40", and so can a L. See what we are talking about?
+
+### What Do I Measure?
+
+Here's an example of how Subtle Flex Streetwear measures clothing:
+
+Length 28"\
+Pit-to-pit 24"\
+Sleeve 21.5"
