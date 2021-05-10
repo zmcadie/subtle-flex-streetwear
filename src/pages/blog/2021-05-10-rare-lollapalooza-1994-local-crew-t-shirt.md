@@ -37,6 +37,6 @@ The festival's `94 roster was huge with Smashing Pumpkins, Beastie Boys, Cypress
 
 Lollapalooza Music Festival 1994 was a 43 show tour that ran from July 7th to Sept 5th.
 
-You can pickup one of these pieces of music history here:
+These t-shirts are increasingly difficult to find. You can pick one up from our Subtle Flex Streetwear store though for a cool **$315.26[](https://subtleflexstreetwear.com/shop/vintage-1994-lollapalooza-crew-t-shirt).**
 
-https://subtle-flex-streetwear.myshopify.com/cart/39889126850737:1?channel=buy_button
+**[ Vintage 1994 Lollapalooza Local Crew T-shirt](https://subtleflexstreetwear.com/shop/vintage-1994-lollapalooza-crew-t-shirt)**
