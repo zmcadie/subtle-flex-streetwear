@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 heroBanner:
-  image: /img/tomato-soup-sweater.jpg
+  image: /img/sfsw-main-website-photo-optimized.jpeg
   heroLeft:
     label: T-Shirts
     collection: T-Shirts
