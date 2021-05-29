@@ -10,6 +10,15 @@ heroBanner:
     collection: Outerwear
 featuredCollections:
   - T-Shirts
-  - Sportswear
   - Outerwear
+  - Jerseys
+  - Nike
+  - Music
+  - Disney & Universal Studios
+  - Harley Davidson & Motorcycle Wear
+  - Movie & TV Shows
+  - Marvel & DC Comics
+  - Jordan
+  - Cartoons & Anime
+  - Video Games
 ---
