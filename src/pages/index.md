@@ -10,5 +10,5 @@ heroBanner:
     collection: Outerwear
 featuredCollections:
   - Music
-  - Cartoons & Anime
+  - Movie & TV Shows
 ---
