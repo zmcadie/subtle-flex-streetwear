@@ -3,14 +3,12 @@ templateKey: index-page
 heroBanner:
   image: /img/sfsw-main-website-photo-optimized.jpeg
   heroLeft:
-    label: Featured Collection
+    label: "Featured Collection: Nike"
     collection: Nike
   heroRight:
-    label: Outerwear
+    label: Seasonal Outerwear
     collection: Outerwear
 featuredCollections:
-  - Outerwear
-  - Jerseys
-  - Disney & Universal Studios
+  - Music
   - Cartoons & Anime
 ---
