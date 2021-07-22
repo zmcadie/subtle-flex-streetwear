@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 heroBanner:
-  image: /img/sfsw-main-website-photo-optimized.jpeg
+  image: /img/dsc_2207_hdr-edit.jpg
   heroLeft:
     label: Outerwear
     collection: Outerwear
