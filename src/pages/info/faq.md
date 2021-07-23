@@ -4,7 +4,7 @@ title: FAQs
 ---
 ### Are your clothes clean?
 
-Subtle Flex Streetwear inspects each article of clothing and has developed a standardized restoration process for each different type of garment, footwear and accessories we sell. 
+Subtle Flex Streetwear inspects each article of clothing and has developed a standardized restoration process for each different type of garment, footwear and accessory we sell. 
 
 ### Is shipping quick?
 
