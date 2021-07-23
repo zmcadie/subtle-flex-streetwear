@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 heroBanner:
-  image: /img/dsc_2207_hdr-edit.jpg
+  image: /img/vancouver-sunset-subtle-flex-street-wear.jpg
   heroLeft:
     label: Outerwear
     collection: Outerwear
