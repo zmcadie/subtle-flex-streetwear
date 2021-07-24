@@ -8,11 +8,11 @@ Subtle Flex Streetwear inspects each article of clothing and has developed a sta
 
 ### Is shipping quick?
 
-All orders are shipped out within 24 hours of processing payment. We are closed Sunday's and Monday's so on those days we do not ship out, next ship out will be Tuesday morning. 
+All orders are shipped out within 24 hours of processing payment. We are closed Sundays and Mondays so on those days we do not ship out, next ship out will be Tuesday morning. 
 
-Subtle Flex Streetwear has a DEDICATED shipping and fulfillment department located at our warehouse where all items are packaged and ready to ship. 
+Subtle Flex Streetwear has a DEDICATED shipping and fulfillment department located at our warehouse where all items are packaged and ready to ship.
 
-All items are cleaned and restored then packaged in sanitary conditions before being put into our inventory system ready for shipping! 
+All items are cleaned and restored then packaged in sanitary conditions before being put into our inventory system ready for shipping!
 
 ### Where in the world do we ship to?
 
