@@ -74,9 +74,12 @@ const ImageDisplay = ({ images }) => {
 
 const CurrencyDisplay = ({ cost }) => {
   const { store: { selected_currency: { code, symbol }}} = useContext(StoreContext)
+
+  const displayAmount = Number.parseFloat(cost[code][0]).toFixed(2)
+  const compareAmount = cost[code][1] ? Number.parseFloat(cost[code][1]).toFixed(2) : null
   
-  const displayPrice = `${symbol}${Number.parseFloat(cost[code][0]).toFixed(2)}`
-  const original = cost[code][1] ? `${symbol}${Number.parseFloat(cost[code][1]).toFixed(2)}` : null
+  const displayPrice = `${symbol}${displayAmount}`
+  const original = (compareAmount && compareAmount > displayAmount) ? `${symbol}${compareAmount}` : null
   
   return (
     <div className="currency-display">
