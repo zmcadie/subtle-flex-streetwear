@@ -1,14 +1,16 @@
 ---
 templateKey: index-page
 heroBanner:
-  image: /img/sfsw-main-website-photo-optimized.jpeg
+  image: /img/vancouver-sunset-subtle-flex-street-wear.jpg
   heroLeft:
-    label: "Featured Collection: Nike"
-    collection: Nike
-  heroRight:
-    label: Seasonal Outerwear
+    label: Outerwear
     collection: Outerwear
+  heroRight:
+    label: Music Fans
+    collection: Music
 featuredCollections:
   - Music
   - Movie & TV Shows
+  - Cartoons & Anime
+  - Sports Fans
 ---

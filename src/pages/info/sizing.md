@@ -6,13 +6,13 @@ title: Confusing Clothing Sizes or Sizing Clothing Scientifically?
 
 Going by subjective S, M, L type sizing to figure out what will fit often ends in "This Is What I Paid For, This Is What I Got" Instagram and Pinterest posts. 
 
-Your M us not the same as my M, and I swear that the L fit me last week...
+Your M is not the same as my M, and I swear that the L fit me last week...
 
 How do you avoid this absolute DISASTER?
 
 ### Measure It!
 
-To avoid sizing disasters always go with the actual measurements. This shouldn't change - 40" will be 40"...but a S can also be 40", and so can a L. See what we are talking about?
+To avoid sizing disasters always go with the actual measurements. This shouldn't change - 40" will be 40"...but a S can also be 40", and so can a L. See what we are talking about? So make sure you measure yourself and check the description before you order.
 
 ### What Do I Measure?
 
