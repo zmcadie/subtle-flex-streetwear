@@ -45,6 +45,7 @@ $carousel-item-gap: 40px;
     transition: left 0.4s ease-in-out;
 
     > * {
+      display: flex;
       flex: 0 0 auto;
       margin-right: $carousel-item-gap;
       
