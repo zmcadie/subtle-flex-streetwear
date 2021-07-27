@@ -11,17 +11,15 @@ const CurrencyDisplay = ({ cost }) => {
   const { store: { selected_currency: { code, symbol }}} = useContext(StoreContext)
   
   const price = Number.parseFloat(cost[code][0])
-  const isRound = Math.round(price) === price
-  const displayPrice = `${symbol}${price.toFixed(isRound ? 0 : 2)}`
-
   const original = Number.parseFloat(cost[code][1])
-  const originalIsRound = Math.round(original) === original
-  const originalDisplay = `${symbol}${original.toFixed(originalIsRound ? 0 : 2)}`
+
+  const displayPrice = `${symbol}${price.toFixed(Math.round(price) === price ? 0 : 2)}`
+  const originalDisplay = `${symbol}${original.toFixed(Math.round(original) === original ? 0 : 2)}`
 
   return (
     <p className="preview-currency-display">
       { displayPrice }
-      { original ? <span className="discounted">{ originalDisplay }</span> : "" }
+      { original > price ? <span className="discounted">{ originalDisplay }</span> : "" }
     </p>
   )
 }

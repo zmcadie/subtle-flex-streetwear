@@ -6,7 +6,8 @@
   width: $product-preview-width;
 
   a {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   .item-preview-image {
@@ -60,7 +61,7 @@
   }
 
   .add-to-cart-button {
-    margin: 0 20px 20px;
+    margin: auto 20px 20px;
     width: $product-preview-width - 40px;
   }
 
