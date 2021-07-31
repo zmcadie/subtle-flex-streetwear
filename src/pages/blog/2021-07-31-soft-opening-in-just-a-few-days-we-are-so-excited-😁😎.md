@@ -27,6 +27,8 @@ And to boot we are still in this Covid, let's call it cloud. City licenses are a
 
 So here we are working away when Austin ( Our Head Curator ) happens to mention "We have a Alex Burrows Canuck Home Jersey with fighting strap to give away". Then he points to a mannequin in the corner no one was paying attention to. "Well that's a door prize." Lol. Now I'm on a hunt for more prizes among all the goodies we have. 😉
 
+![Vancouver Canucks jersey in vintage store with bags hanging in background.](/img/dsc_7479-edit-edit.jpg "SFSW Door Prize Soft Opening")
+
 Hope to see you all on Aug 1st. @ 102-2511 East Hasting St. 
 
 J.E.C.
