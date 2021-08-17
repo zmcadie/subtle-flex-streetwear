@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 heroBanner:
-  image: /img/vancouver-sunset-subtle-flex-street-wear.jpg
+  image: /img/wide-angle-view-of-sfsw-store.jpg
   heroLeft:
     label: Outerwear
     collection: Outerwear
