@@ -1,6 +1,6 @@
 ---
 templateKey: info-page
-title: Confusing Clothing Sizes or Sizing Clothing Scientifically?
+title: Sizing Vintage Clothing
 ---
 ### Subjective S, M, L, XL, XXL Sizing is WTF!?!?!
 
